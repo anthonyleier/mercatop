@@ -32,8 +32,10 @@
                             Ferramentas de Administrador
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{route('listarUsers')}}">Listar Usuários</a>                        
-                        </div>
+                            <a class="dropdown-item" href="{{route('tela_listar_users')}}">Listar Usuários</a>
+                            <a class="dropdown-item" href="{{route('tela_adicionar_cidade')}}">Cadastrar Cidade</a>
+                            <a class="dropdown-item" href="{{route('tela_listar_cidade')}}">Listar Cidades</a>
+                            <div>
                     </li>
                     @endif
                 </ul>                
@@ -47,15 +49,15 @@
             </div>
         </nav>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
                 @if (session()->has('mensagem'))
-                    <div class="alert alert-danger mt-2">{{session('mensagem')}}</div>
+                    <div class="alert alert-dark mt-4">{{session('mensagem')}}</div>
                     {{ session()->forget('mensagem') }} 
                 @endif 
                 @yield('pagina')
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-1"></div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
