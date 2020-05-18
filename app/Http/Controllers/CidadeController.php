@@ -7,21 +7,21 @@ use App\Cidade;
 
 class CidadeController extends Controller
 {
-    function telaAdicionarCidade(){
+    public function telaAdicionarCidade(){
     	return view('cidade.cadastroCidade');
     }
 
-    function telaAlterarCidade($id){
+    public function telaAlterarCidade($id){
         $cidade = Cidade::find($id);
         return view('cidade.alterarCidade', ['cidade' => $cidade]);        
     }
 
-    function telaListarCidade(){
+    public function telaListarCidade(){
         $lista = Cidade::all();
         return view('cidade.listarCidades', ['lista' => $lista]);
     }
 
-    function addCidade(Request $req){
+    public function addCidade(Request $req){
     	$c = new Cidade();
 
     	$c->nome = $req->input('nome');
@@ -44,7 +44,7 @@ class CidadeController extends Controller
     	return redirect()->route('tela_listar_cidade');
     }
 
-    function updateCidade($id, Request $req){
+    public function updateCidade($id, Request $req){
         $c = Cidade::find($id);
 
         $c->nome = $req->input('nome');
@@ -67,7 +67,7 @@ class CidadeController extends Controller
         return redirect()->route('tela_listar_cidade');
     }
 
-    function deleteCidade($id){
+    public function deleteCidade($id){
         $c = Cidade::find($id);     
 
         if($c->delete()){

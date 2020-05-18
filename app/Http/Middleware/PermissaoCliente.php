@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class PermissaoAdmin
+class PermissaoCliente
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,14 @@ class PermissaoAdmin
      */
     public function handle($request, Closure $next)
     {
-        //O usuario não é administrador do sistema?
-        if(!Auth::user()->verificaAdmin()){
+        //O usuario não é cliente do sistema?
+        if(!Auth::user()->verificaCliente()){
             session([
-                'mensagem' => 'Você precisa ser administrador para isso.'
+                'mensagem' => 'Você precisa ser cliente para isso.'
             ]);         
             return redirect('/'); //Se ele nao for, apenas volta pra pagina anterior
+        }else{
+            return $next($request); //Se ele for o Middleware continua
         }
-
-        return $next($request); //Se ele for o Middleware continua
     }
 }

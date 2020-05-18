@@ -13,7 +13,7 @@ class CreateCidade extends Migration
      */
     public function up()
     {
-        Schema::create('cidade', function (Blueprint $table) {
+        Schema::create('cidades', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 75);
             $table->string('estado', 75);

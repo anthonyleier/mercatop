@@ -8,12 +8,12 @@ use App\User;
 
 class UserController extends Controller
 {
-    function logout(){
+    public function logout(){
     	Auth::logout();
 		return redirect('/login');
     }
 
-    function telaListarUsers(){
+    public function telaListarUsers(){
     	$lista = User::all();
     	return view('user.listarUsers', ["lista" => $lista]);
     }
