@@ -15,10 +15,25 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function(){
 
-	//Todas as rotas aqui dentro, o usuário precisará estar cadastrado (Usuario Cliente)
+	//Todas as rotas aqui dentro, o usuário precisará estar cadastrado
 
 	Route::get('/', function () {return view('welcome');})->name('welcome');
 	Route::get('/logout', 'UserController@logout');
+
+	Route::middleware(['permissaoCliente'])->group(function(){
+		//Todas as rotas aqui dentro, o usuário precisará estar cadastrado e ser cliente (Usuario Cliente)
+
+		/* Endereços */
+		/* Telas */		
+		Route::get('/tela/endereco/adicionar', 'EnderecoController@telaAdicionarEndereco')->name('tela_adicionar_endereco');
+		Route::get('/tela/endereco/alterar/{id}', 'EnderecoController@telaAlterarEndereco')->name('tela_alterar_endereco');				
+		Route::get('/tela/endereco/listar', 'EnderecoController@telaListarEndereco')->name('tela_listar_endereco');
+
+		/* Funções */
+		Route::post('/endereco/registrar', 'EnderecoController@addEndereco')->name('registrar_endereco');		
+		Route::post('/endereco/atualizar/{id}', 'EnderecoController@updateEndereco')->name('alterar_endereco');		
+		Route::get('/endereco/excluir/{id}', 'EnderecoController@deleteEndereco')->name('excluir_endereco');
+	});
 
 	Route::middleware(['permissaoAdmin'])->group(function(){
 		//Todas as rotas aqui dentro, o usuário precisará estar cadastrado e ser administrador (Usuario Administrador)
@@ -36,10 +51,9 @@ Route::middleware(['auth'])->group(function(){
 		/* Funções */
 		Route::post('/cidade/registrar', 'CidadeController@addCidade')->name('registrar_cidade');
 		Route::post('/cidade/atualizar/{id}', 'CidadeController@updateCidade')->name('alterar_cidade');		
-		Route::get('/cidade/excluir/{id}', 'CidadeController@deleteCidade')->name('excluir_cidade');			
-	});
+		Route::get('/cidade/excluir/{id}', 'CidadeController@deleteCidade')->name('excluir_cidade');
+	});			
 });
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-

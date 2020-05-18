@@ -40,4 +40,12 @@ class User extends Authenticatable
     function verificaAdmin(){
         return $this->permissao == 1;
     }
+
+    function verificaCliente(){
+        return $this->permissao == 0;
+    }
+
+    function enderecos(){
+        return $this->hasMany('App\Endereco', 'id_cliente', 'id');
+    }
 }
