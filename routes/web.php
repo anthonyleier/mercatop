@@ -62,7 +62,17 @@ Route::middleware(['auth'])->group(function(){
 		Route::post('/categoria/registrar', 'CategoriaProdutoController@addCategoria')->name('registrar_categoria');
 		Route::post('/categoria/atualizar/{id}', 'CategoriaProdutoController@updateCategoria')->name('alterar_categoria');
 
-		Route::get('/categoria/excluir/{id}', 'CategoriaProdutoController@deleteCategoria')->name('excluir_cidade');
+		Route::get('/categoria/excluir/{id}', 'CategoriaProdutoController@deleteCategoria')->name('excluir_cidade'); //corrigir isso dps
+
+		//* Produtos *//
+		/* Telas */
+		Route::get('/tela/produto/adicionar', 'ProdutoController@telaAdicionarProduto')->name('tela_adicionar_produto');
+		Route::get('/tela/produto/alterar/{id}', 'ProdutoController@telaAlterarProduto')->name('tela_alterar_produto');
+		Route::get('/tela/produto/listar', 'ProdutoController@telaListarProduto')->name('tela_listar_produto');
+		/* Funções */
+		Route::post('/produto/registrar', 'ProdutoController@addProduto')->name('registrar_produto');
+		Route::post('/produto/atualizar/{id}', 'ProdutoController@updateProduto')->name('alterar_produto');
+		Route::get('/produto/excluir/{id}', 'ProdutoController@deleteProduto')->name('excluir_produto');
 	});			
 });
 
