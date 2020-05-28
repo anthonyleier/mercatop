@@ -37,13 +37,15 @@ Route::middleware(['auth'])->group(function(){
 
 		//* E-Commerce *//
 		/* Telas */		
-		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('carrinho');				
+		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('tela_carrinho');				
 		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');		
 		Route::get('/tela/produtos/grade', 'ProdutoController@telaProdutoGrade')->name('tela_produtos_grade');
-		Route::get('/tela/produtos/detalhar/{id}', 'ProdutoController@telaDetalhes')->name('detalhes');	
+		Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');		
+		Route::get('/tela/carrinho/finalizar', 'VendaController@telaFinal')->name('tela_finalizar_venda');		
 
 		/* Funções */	
-		Route::get('/comprar/{id}', 'VendaController@addCarrinho')->name('addCarrinho');
+		Route::post('/carrinho/adicionar', 'VendaController@addCarrinho')->name('adicionar_carrinho');
+		Route::get('/carrinho/remover/{id}', 'VendaController@removerCarrinho')->name('remover_carrinho');
 	});
 
 	Route::middleware(['permissaoAdmin'])->group(function(){

@@ -34,8 +34,9 @@ class ProdutoController extends Controller
         
     }
 
-    public function telaDetalhes($id){
-        $produto = Produto::find($id);
+    public function telaDetalhes($slug){
+        $produto = Produto::where('slug', '=', $slug)->get();
+        $produto = $produto[0];
         return view('e-commerce.produtoDetalhado', ['produto' => $produto]);        
     }
 

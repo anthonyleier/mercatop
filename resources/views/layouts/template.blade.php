@@ -24,7 +24,7 @@
                                 <a class="nav-link" href="{{route('tela_listar_endereco')}}">Meus Endereços</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('carrinho')}}">Carrinho</a>
+                                <a class="nav-link" href="{{route('tela_carrinho')}}">Carrinho</a>
                             </li>
                             @endif @if (Auth::user()->verificaAdmin())
                             <li class="nav-item">
