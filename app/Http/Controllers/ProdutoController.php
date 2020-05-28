@@ -25,6 +25,21 @@ class ProdutoController extends Controller
         return view('produto.listarProduto', ['lista' => $lista]);
     }
 
+    public function telaProdutoLista(){
+        $listaProdutos = Produto::all();
+        return view('e-commerce.produtoLista', ['listaProdutos' => $listaProdutos]);
+    }
+
+    public function telaProdutoGrade(){
+        
+    }
+
+    public function telaDetalhes($slug){
+        $produto = Produto::where('slug', '=', $slug)->get();
+        $produto = $produto[0];
+        return view('e-commerce.produtoDetalhado', ['produto' => $produto]);        
+    }
+
     public function addProduto(Request $req){
     	$p = new Produto();
 
