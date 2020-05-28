@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function(){
 	Route::middleware(['permissaoCliente'])->group(function(){
 		//Todas as rotas aqui dentro, o usuário precisará estar cadastrado e ser cliente (Usuario Cliente)
 
-		/* Endereços */
+		//* Endereços *//
 		/* Telas */		
 		Route::get('/tela/endereco/adicionar', 'EnderecoController@telaAdicionarEndereco')->name('tela_adicionar_endereco');
 		Route::get('/tela/endereco/alterar/{id}', 'EnderecoController@telaAlterarEndereco')->name('tela_alterar_endereco');				
@@ -33,6 +33,17 @@ Route::middleware(['auth'])->group(function(){
 		Route::post('/endereco/registrar', 'EnderecoController@addEndereco')->name('registrar_endereco');		
 		Route::post('/endereco/atualizar/{id}', 'EnderecoController@updateEndereco')->name('alterar_endereco');		
 		Route::get('/endereco/excluir/{id}', 'EnderecoController@deleteEndereco')->name('excluir_endereco');
+
+
+		//* E-Commerce *//
+		/* Telas */		
+		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('carrinho');				
+		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');		
+		Route::get('/tela/produtos/grade', 'ProdutoController@telaProdutoGrade')->name('tela_produtos_grade');
+		Route::get('/tela/produtos/detalhar/{id}', 'ProdutoController@telaDetalhes')->name('detalhes');	
+
+		/* Funções */	
+		Route::get('/comprar/{id}', 'VendaController@addCarrinho')->name('addCarrinho');
 	});
 
 	Route::middleware(['permissaoAdmin'])->group(function(){
@@ -48,6 +59,7 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('/tela/cidade/adicionar', 'CidadeController@telaAdicionarCidade')->name('tela_adicionar_cidade');
 		Route::get('/tela/cidade/alterar/{id}', 'CidadeController@telaAlterarCidade')->name('tela_alterar_cidade');				
 		Route::get('/tela/cidade/listar', 'CidadeController@telaListarCidade')->name('tela_listar_cidade');
+
 		/* Funções */
 		Route::post('/cidade/registrar', 'CidadeController@addCidade')->name('registrar_cidade');
 		Route::post('/cidade/atualizar/{id}', 'CidadeController@updateCidade')->name('alterar_cidade');		
@@ -58,17 +70,18 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('/tela/categoria/adicionar', 'CategoriaProdutoController@telaAdicionarCategoria')->name('tela_adicionar_categoria');
 		Route::get('/tela/categoria/alterar/{id}', 'CategoriaProdutoController@telaAlterarCategoria')->name('tela_alterar_categoria');
 		Route::get('/tela/categoria/listar', 'CategoriaProdutoController@telaListarCategoria')->name('tela_listar_categoria');
+
 		/* Funções */
 		Route::post('/categoria/registrar', 'CategoriaProdutoController@addCategoria')->name('registrar_categoria');
 		Route::post('/categoria/atualizar/{id}', 'CategoriaProdutoController@updateCategoria')->name('alterar_categoria');
-
-		Route::get('/categoria/excluir/{id}', 'CategoriaProdutoController@deleteCategoria')->name('excluir_cidade'); //corrigir isso dps
+		Route::get('/categoria/excluir/{id}', 'CategoriaProdutoController@deleteCategoria')->name('excluir_categoria');
 
 		//* Produtos *//
 		/* Telas */
 		Route::get('/tela/produto/adicionar', 'ProdutoController@telaAdicionarProduto')->name('tela_adicionar_produto');
 		Route::get('/tela/produto/alterar/{id}', 'ProdutoController@telaAlterarProduto')->name('tela_alterar_produto');
 		Route::get('/tela/produto/listar', 'ProdutoController@telaListarProduto')->name('tela_listar_produto');
+
 		/* Funções */
 		Route::post('/produto/registrar', 'ProdutoController@addProduto')->name('registrar_produto');
 		Route::post('/produto/atualizar/{id}', 'ProdutoController@updateProduto')->name('alterar_produto');

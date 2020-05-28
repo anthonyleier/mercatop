@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-md-12 bg-dark">
                 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                    <a class="navbar-brand" href="{{route('welcome')}}">Mercatop</a>
+                    <a class="navbar-brand" href="{{route('tela_produtos_lista')}}">Mercatop</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -16,15 +16,15 @@
                     @if (Auth::check())
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="{{route('welcome')}}">Home<span class="sr-only">(current)</span></a>
-                            </li>
                             @if (Auth::user()->verificaCliente())
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('tela_adicionar_endereco')}}">Cadastrar Endereço</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('tela_listar_endereco')}}">Meus Endereços</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('carrinho')}}">Carrinho</a>
                             </li>
                             @endif @if (Auth::user()->verificaAdmin())
                             <li class="nav-item">
