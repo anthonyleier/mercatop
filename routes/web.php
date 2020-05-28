@@ -73,6 +73,10 @@ Route::middleware(['auth'])->group(function(){
 		Route::post('/produto/registrar', 'ProdutoController@addProduto')->name('registrar_produto');
 		Route::post('/produto/atualizar/{id}', 'ProdutoController@updateProduto')->name('alterar_produto');
 		Route::get('/produto/excluir/{id}', 'ProdutoController@deleteProduto')->name('excluir_produto');
+
+		//* Vendas *//
+		/* Telas*/
+		Route::get('/tela/venda/listar/geral', 'VendaController@telaListarVendaGeral')->name('tela_listar_venda_geral');
 	});			
 });
 
