@@ -34,7 +34,7 @@ class ProdutoController extends Controller
 
     public function telaProdutoGrade(Request $req){
 
-        $tamanhoPag = 2;
+        $tamanhoPag = 16;
         $busca = "";
         
 
@@ -64,6 +64,14 @@ class ProdutoController extends Controller
     }
 
     public function addProduto(Request $req){
+
+        $req->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'quantidade' => ['required'],
+            'valor' => ['required'],
+            'descricao' => ['required', 'string', 'max:255'],
+        ]);
+
     	$p = new Produto();
 
     	$nome = $req->input('nome');
@@ -171,6 +179,14 @@ class ProdutoController extends Controller
     }
 
     public function updateProduto($id, Request $req){
+
+        $req->validate([
+            'nome' => ['required', 'string', 'max:255'],
+            'quantidade' => ['required'],
+            'valor' => ['required'],
+            'descricao' => ['required', 'string', 'max:255'],
+        ]);
+        
         $p = Produto::find($id);
 
         $nome = $req->input('nome');
