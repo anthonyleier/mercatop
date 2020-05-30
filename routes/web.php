@@ -17,7 +17,7 @@ Route::middleware(['auth'])->group(function(){
 
 	//Todas as rotas aqui dentro, o usuário precisará estar cadastrado
 
-	Route::get('/', function () {return view('welcome');})->name('welcome');
+	Route::get('/', 'ProdutoController@telaProdutoGrade')->name('inicial');	
 	Route::get('/logout', 'UserController@logout');
 
 	Route::middleware(['permissaoCliente'])->group(function(){

@@ -1,25 +1,20 @@
-@extends('layouts.template')
-
+@extends('layouts.template') 
 @section('pagina')
 
-<table class="table table-bordered table-striped mt-4">
-	<thead>
-		<th></th>
-		<th>Nome do Produto</th>
-		<th>Valor</th>
-		<th>Categoria</th>
-		<th>Comprar</th>
-	</thead>
-	@foreach($listaProdutos as $produto)	
-	<tbody>
-		<td><img src="https://picsum.photos/100/50"></td>
-		<td>{{$produto->nome}}</td>
-		<td>{{$produto->valor}}</td>
-		<td>{{$produto->id_categoria}}</td>
-		{{$produto->slug}}
-		<td><a href="{{route('detalhes', ['slug' => $produto->slug])}}">Ver Mais</a></td>
-	</tbody>
-	@endforeach
-</table>
+<div class="row mt-3">
+    @foreach($listaProdutos as $produto)
+    <div class="col-md-3 pr-5">
+        <div class="card" style="width: 18rem;">
+            <a href="{{route('tela_detalhes', ['slug' => $produto->slug])}}">
+            	<img src="{{url($produto->fotos->first()->nome)}}" class="card-img-top" alt="..." width="100" height="200" />
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">{{$produto->nome}}</h5>
+                <p class="card-text font-weight-bold">Preço: {{$produto->valor}}</p>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
 
 @endsection
