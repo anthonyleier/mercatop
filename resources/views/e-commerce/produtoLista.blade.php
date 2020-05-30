@@ -12,7 +12,7 @@
 	</thead>
 	@foreach($listaProdutos as $produto)	
 	<tbody>
-		<td><img src="https://picsum.photos/50/50"></td>
+		<td><img src="{{url($produto->fotos->first()->nome)}}" width="50"></td>
 		<td>{{$produto->nome}}</td>
 		<td>{{$produto->valor}}</td>
 		<td>{{$produto->id_categoria}}</td>

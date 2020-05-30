@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Produto;
-use App\CategoriaProduto;
+use App\Categoria;
 use App\Foto;
 
 class ProdutoController extends Controller
 {
     public function telaAdicionarProduto(){
-    	$cp = CategoriaProduto::all();
+    	$cp = Categoria::all();
     	return view('produto.cadastroProduto', ["cp" => $cp]);
     }
 
@@ -74,7 +74,7 @@ class ProdutoController extends Controller
 
         $nome_foto = $nome_arq->storeAs('foto_produto', $nome_foto);
 
-        $f->nome = "upload/$nome_foto";
+        $f->nome = "storage/$nome_foto";
     	if($p->save()){
     		session([
                 'mensagem' => 'Produto registrado com sucesso.'

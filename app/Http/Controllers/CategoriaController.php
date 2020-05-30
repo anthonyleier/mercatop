@@ -3,25 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\CategoriaProduto;
-class CategoriaProdutoController extends Controller
+use App\Categoria;
+
+class CategoriaController extends Controller
 {
     public function telaAdicionarCategoria(){
     	return view('categoria.cadastroCategoria');
     }
 
     public function telaAlterarCategoria($id){
-        $categoria = CategoriaProduto::find($id);
+        $categoria = Categoria::find($id);
         return view('categoria.alterarCategoria', ['categoria' => $categoria]);        
     }
 
     public function telaListarCategoria(){
-        $lista = CategoriaProduto::all();
+        $lista = Categoria::all();
         return view('categoria.listarCategoria', ['lista' => $lista]);
     }
 
     public function addCategoria(Request $req){
-    	$cp = new CategoriaProduto();
+    	$cp = new Categoria();
 
     	$nome = $req->input('nome');
     	$categoria_pai = $req->input('categoria_pai');
@@ -42,7 +43,7 @@ class CategoriaProdutoController extends Controller
     }
 
     public function updateCategoria($id, Request $req){
-        $cp = CategoriaProduto::find($id);
+        $cp = Categoria::find($id);
 
         $nome = $req->input('nome');
         $categoria_pai = $req->input('categoria_pai');
@@ -63,7 +64,7 @@ class CategoriaProdutoController extends Controller
     }
 
     public function deleteCategoria($id){
-        $c = CategoriaProduto::find($id);     
+        $c = Categoria::find($id);     
 
         if($c->delete()){
             session([

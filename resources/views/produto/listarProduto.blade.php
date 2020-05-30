@@ -20,9 +20,7 @@
 		<td>{{$produto->quantidade}}</td>
 		<td>{{$produto->valor}}</td>
 		<td>{{$produto->id_categoria}}</td>
-		@foreach($foto as $f)
-		<td><img src="asset($f->nome)"></td>
-		@endforeach
+		<td><img src="{{$produto->foto}}"></td>
 		<td>{{$produto->descricao}}</td>
 		<td><a href="{{route('tela_alterar_produto', ["id" => $produto->id])}}" class="btn btn-warning btn-block">Alterar</a></td>
 		<td><a href="#" onclick="exclui({{$produto->id}})" class="btn btn-danger btn-block">Excluir</a></td>

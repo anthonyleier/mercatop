@@ -69,14 +69,14 @@ Route::middleware(['auth'])->group(function(){
 
 		//* Categorias *//
 		/* Telas */
-		Route::get('/tela/categoria/adicionar', 'CategoriaProdutoController@telaAdicionarCategoria')->name('tela_adicionar_categoria');
-		Route::get('/tela/categoria/alterar/{id}', 'CategoriaProdutoController@telaAlterarCategoria')->name('tela_alterar_categoria');
-		Route::get('/tela/categoria/listar', 'CategoriaProdutoController@telaListarCategoria')->name('tela_listar_categoria');
+		Route::get('/tela/categoria/adicionar', 'CategoriaController@telaAdicionarCategoria')->name('tela_adicionar_categoria');
+		Route::get('/tela/categoria/alterar/{id}', 'CategoriaController@telaAlterarCategoria')->name('tela_alterar_categoria');
+		Route::get('/tela/categoria/listar', 'CategoriaController@telaListarCategoria')->name('tela_listar_categoria');
 
 		/* Funções */
-		Route::post('/categoria/registrar', 'CategoriaProdutoController@addCategoria')->name('registrar_categoria');
-		Route::post('/categoria/atualizar/{id}', 'CategoriaProdutoController@updateCategoria')->name('alterar_categoria');
-		Route::get('/categoria/excluir/{id}', 'CategoriaProdutoController@deleteCategoria')->name('excluir_categoria');
+		Route::post('/categoria/registrar', 'CategoriaController@addCategoria')->name('registrar_categoria');
+		Route::post('/categoria/atualizar/{id}', 'CategoriaController@updateCategoria')->name('alterar_categoria');
+		Route::get('/categoria/excluir/{id}', 'CategoriaController@deleteCategoria')->name('excluir_categoria');
 
 		//* Produtos *//
 		/* Telas */

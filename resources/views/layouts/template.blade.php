@@ -36,6 +36,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('tela_listar_cidade')}}">Listar Cidades</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('tela_adicionar_categoria')}}">Cadastrar Categoria</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('tela_listar_categoria')}}">Listar Categoria</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('tela_adicionar_produto')}}">Cadastrar Produto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('tela_listar_produto')}}">Listar Produto</a>
+                            </li>
                             @endif
                         </ul>
                         <div class="text-light mr-4">

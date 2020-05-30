@@ -9,14 +9,14 @@ class Produto extends Model
     protected $table = 'produto';
     protected $primaryKey = 'id';
 
-    function categoria_produto(){
-    	return $this->belongsTo('App\Produto', 'id_categoria', 'id');
+    function categoria(){
+    	return $this->belongsTo('App\Categoria', 'id_categoria', 'id');
     }
     function venda(){
-    	return $this->belongsToMany('App\Produto', 'produto_venda', 'id_produto', 'id_venda')
+    	return $this->belongsToMany('App\Venda', 'produto_venda', 'id_produto', 'id_venda')
     	->withPivot(['quantidade', 'subtotal'])->withTimestamps();
     }
-    function foto(){
-    	return $this->hasMany('App\Produto', 'id_produto', 'id');
+    function fotos(){
+    	return $this->hasMany('App\Foto', 'id_produto', 'id');
     }
 }
