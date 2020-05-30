@@ -3,19 +3,23 @@
 
 <table class="table table-bordered table-striped mt-4">
 	<thead>
-		<th>ID</th>
+		<th>ID da Venda</th>
 		<th>Nome do Cliente</th>
 		<th>Valor</th>
-		<th>Produtos</th>
+		<th>Endereço de Destino</th>
 	</thead>
-	<!-- @foreach($lista as $venda)-->
+	@foreach($lista as $venda)
 	<tbody>
-		<td>{{$produto->id}}</td>
-		<td>{{$venda->id_cliente>nome}}</td>
-		<td>{{$produto->quantidade}}</td>
-		<td><a href="#" class="btn btn-warning btn-block"ss>Produtos</a></td>
+		<td>{{$venda->id}}</td>
+		<td>{{$venda->user->name}}</td>
+		<td>{{$venda->valor}}</td>
+		@if(isset($venda->endereco))
+			<td>{{$venda->endereco->logradouro}}</td>
+		@else
+			<td>Endereço Inválido</td>
+		@endif
 	</tbody>
-	<!--@endforeach-->
+	@endforeach
 
 </table>
 @endsection

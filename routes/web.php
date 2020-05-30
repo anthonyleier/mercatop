@@ -40,12 +40,12 @@ Route::middleware(['auth'])->group(function(){
 		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('tela_carrinho');				
 		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');		
 		Route::get('/tela/produtos/grade', 'ProdutoController@telaProdutoGrade')->name('tela_produtos_grade');
-		Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');		
-		Route::get('/tela/carrinho/finalizar', 'VendaController@telaFinal')->name('tela_finalizar_venda');		
+		Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');	
 
 		/* Funções */	
 		Route::post('/carrinho/adicionar', 'VendaController@addCarrinho')->name('adicionar_carrinho');
 		Route::get('/carrinho/remover/{id}', 'VendaController@removerCarrinho')->name('remover_carrinho');
+		Route::post('/venda/finalizar', 'VendaController@finalizar')->name('finalizar_venda');
 	});
 
 	Route::middleware(['permissaoAdmin'])->group(function(){

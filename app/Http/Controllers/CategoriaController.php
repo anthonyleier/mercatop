@@ -8,7 +8,8 @@ use App\Categoria;
 class CategoriaController extends Controller
 {
     public function telaAdicionarCategoria(){
-    	return view('categoria.cadastroCategoria');
+        $categorias = Categoria::all();
+    	return view('categoria.cadastroCategoria', ['categorias' => $categorias]);
     }
 
     public function telaAlterarCategoria($id){

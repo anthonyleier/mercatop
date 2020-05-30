@@ -16,4 +16,8 @@ class Endereco extends Model
     function user(){
         return $this->belongsTo('App\User', 'id_cliente', 'id');
     }
+
+    function vendas(){
+        return $this->hasMany('App\Venda', 'id_venda', 'id');
+    }
 }

@@ -50,15 +50,39 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="valor" class="col-md-4 col-form-label text-md-right">{{ __('Imagem') }}</label>
-                            <div class="col-md-6">
-                                <input name="upload" type="file" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group row">
                             <label class="col-md-4 col-form-label text-md-right">{{ __('Descrição') }}</label>
                             <div class="col-md-6">
                                 <input name="descricao" type="text" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagem1" class="col-md-4 col-form-label text-md-right">{{ __('Imagem 1') }}</label>
+                            <div class="col-md-6">
+                                <input name="imagem1" type="file" class="form-control" id="imagem1">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagem2" class="col-md-4 col-form-label text-md-right">{{ __('Imagem 2') }}</label>
+                            <div class="col-md-6">
+                                <input name="imagem2" type="file" class="form-control" id="imagem2">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagem3" class="col-md-4 col-form-label text-md-right">{{ __('Imagem 3') }}</label>
+                            <div class="col-md-6">
+                                <input name="imagem3" type="file" class="form-control" id="imagem3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagem4" class="col-md-4 col-form-label text-md-right">{{ __('Imagem 4') }}</label>
+                            <div class="col-md-6">
+                                <input name="imagem4" type="file" class="form-control" id="imagem4">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="imagem5" class="col-md-4 col-form-label text-md-right">{{ __('Imagem 5') }}</label>
+                            <div class="col-md-6">
+                                <input name="imagem5" type="file" class="form-control" id="imagem5">
                             </div>
                         </div>
                         <div class="form-group row mb-0">

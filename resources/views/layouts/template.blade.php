@@ -48,6 +48,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('tela_listar_produto')}}">Listar Produto</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('tela_listar_venda_geral')}}">Listar Vendas</a>
+                            </li>
                             @endif
                         </ul>
                         <div class="text-light mr-4">

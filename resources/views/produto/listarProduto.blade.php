@@ -8,7 +8,7 @@
 		<th>Quantidade</th>
 		<th>Valor</th>
 		<th>Categoria</th>
-		<th>Foto</th>
+		<th>Quantidade de Fotos</th>
 		<th>Descrição</th>
 		<th>Alteração</th>
 		<th>Exclusão</th>
@@ -19,8 +19,14 @@
 		<td>{{$produto->nome}}</td>
 		<td>{{$produto->quantidade}}</td>
 		<td>{{$produto->valor}}</td>
-		<td>{{$produto->id_categoria}}</td>
-		<td><img src="{{$produto->foto}}"></td>
+		<td>{{$produto->categoria->nome}}</td>
+		@php
+			$qtdFotos = 0;
+			foreach($produto->fotos as $foto){
+				$qtdFotos++;
+			}
+		@endphp
+		<td>{{$qtdFotos}}</td>
 		<td>{{$produto->descricao}}</td>
 		<td><a href="{{route('tela_alterar_produto', ["id" => $produto->id])}}" class="btn btn-warning btn-block">Alterar</a></td>
 		<td><a href="#" onclick="exclui({{$produto->id}})" class="btn btn-danger btn-block">Excluir</a></td>

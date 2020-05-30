@@ -17,7 +17,7 @@ class ProdutoController extends Controller
 
     public function telaAlterarProduto($id){
         $produto = Produto::find($id);
-        $cp = CategoriaProduto::all();
+        $cp = Categoria::all();
         return view('produto.alterarProduto', ['produto' => $produto, "cp" => $cp]);        
     }
 
@@ -33,7 +33,8 @@ class ProdutoController extends Controller
     }
 
     public function telaProdutoGrade(){
-        
+        $listaProdutos = Produto::all();
+        return view('e-commerce.produtoGrade', ['listaProdutos' => $listaProdutos]);        
     }
 
     public function telaDetalhes($slug){
@@ -44,7 +45,6 @@ class ProdutoController extends Controller
 
     public function addProduto(Request $req){
     	$p = new Produto();
-        $f = new Foto();
 
     	$nome = $req->input('nome');
     	$quantidade = $req->input('quantidade');
@@ -53,7 +53,11 @@ class ProdutoController extends Controller
     	$id_categoria = $req->input('id_categoria');
     	$slug = Str::of($nome)->slug('-');
 
-        $nome_arq = $req->file('upload'); 
+        $imagem1 = $req->file('imagem1'); 
+        $imagem2 = $req->file('imagem2'); 
+        $imagem3 = $req->file('imagem3'); 
+        $imagem4 = $req->file('imagem4'); 
+        $imagem5 = $req->file('imagem5'); 
 
         $p->nome = $nome;
         $p->quantidade = $quantidade;
@@ -62,19 +66,77 @@ class ProdutoController extends Controller
         $p->id_categoria = $id_categoria;
         $p->slug = $slug;
 
-        $f->nome = $nome_arq;
         $p->save();
-        $f->id_produto = $p->id;
-        $f->save();
 
-        $nome_foto = $p->nome." ".$p->id;
-        $nome_foto = Str::of($nome_foto)->slug('-');
-        $p->slug = $nome_foto;
-        $nome_foto = $nome_foto . "." . $nome_arq->extension();
+        if(isset($imagem1)){
+            $f = new Foto();
 
-        $nome_foto = $nome_arq->storeAs('foto_produto', $nome_foto);
+            $nome_foto = $p->nome." ".$p->id." 1";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem1->extension();
 
-        $f->nome = "storage/$nome_foto";
+            $nome_foto = $imagem1->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem2)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 2";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem2->extension();
+
+            $nome_foto = $imagem2->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem3)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 3";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem3->extension();
+
+            $nome_foto = $imagem3->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem4)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 4";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem4->extension();
+
+            $nome_foto = $imagem4->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem5)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 5";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem5->extension();
+
+            $nome_foto = $imagem5->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        $linkSlug = $p->nome." ".$p->id;
+        $linkSlug = Str::of($linkSlug)->slug('-');
+        $p->slug = $linkSlug;
+
     	if($p->save()){
     		session([
                 'mensagem' => 'Produto registrado com sucesso.'
@@ -92,12 +154,17 @@ class ProdutoController extends Controller
         $p = Produto::find($id);
 
         $nome = $req->input('nome');
-    	$quantidade = $req->input('quantidade');
-    	$valor = $req->input('valor');
-    	$descricao = $req->input('descricao');
-    	$id_categoria = $req->input('id_categoria');
-    	$slug = Str::of($p->nome." ".$p->id)->slug('-'); 
+        $quantidade = $req->input('quantidade');
+        $valor = $req->input('valor');
+        $descricao = $req->input('descricao');
+        $id_categoria = $req->input('id_categoria');
+        $slug = Str::of($nome)->slug('-');
 
+        $imagem1 = $req->file('imagem1'); 
+        $imagem2 = $req->file('imagem2'); 
+        $imagem3 = $req->file('imagem3'); 
+        $imagem4 = $req->file('imagem4'); 
+        $imagem5 = $req->file('imagem5'); 
 
         $p->nome = $nome;
         $p->quantidade = $quantidade;
@@ -106,13 +173,85 @@ class ProdutoController extends Controller
         $p->id_categoria = $id_categoria;
         $p->slug = $slug;
 
+        $p->save();
+
+        if(isset($imagem1)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 1";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem1->extension();
+
+            $nome_foto = $imagem1->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem2)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 2";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem2->extension();
+
+            $nome_foto = $imagem2->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem3)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 3";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem3->extension();
+
+            $nome_foto = $imagem3->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem4)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 4";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem4->extension();
+
+            $nome_foto = $imagem4->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        if(isset($imagem5)){
+            $f = new Foto();
+
+            $nome_foto = $p->nome." ".$p->id." 5";
+            $nome_foto = Str::of($nome_foto)->slug('-');
+            $nome_foto = $nome_foto . "." . $imagem5->extension();
+
+            $nome_foto = $imagem5->storeAs('foto_produto', $nome_foto);
+            $f->nome = "storage/$nome_foto";
+            $f->id_produto = $p->id;
+            $f->save();
+        }
+
+        $linkSlug = $p->nome." ".$p->id;
+        $linkSlug = Str::of($linkSlug)->slug('-');
+        $p->slug = $linkSlug;
+
         if($p->save()){
             session([
-                'mensagem' => 'Categoria atualizada com sucesso.'
+                'mensagem' => 'Produto registrado com sucesso.'
             ]);
+            $f->save();
         }else{
             session([
-                'mensagem' => 'A categoria não foi atualizada.'
+                'mensagem' => 'O produto não foi registrado.'
             ]);
         }
         return redirect()->route('tela_listar_produto');
@@ -120,7 +259,11 @@ class ProdutoController extends Controller
 
 
     public function deleteProduto($id){
-        $p = Produto::find($id);     
+        $p = Produto::find($id);
+
+        foreach($p->fotos as $foto){
+            $foto->delete();
+        }     
 
         if($p->delete()){
             session([
