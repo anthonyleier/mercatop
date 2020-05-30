@@ -17,8 +17,9 @@ Route::middleware(['auth'])->group(function(){
 
 	//Todas as rotas aqui dentro, o usuário precisará estar cadastrado
 
-	Route::get('/', function () {return view('welcome');})->name('welcome');
-	Route::get('/logout', 'UserController@logout');
+	Route::get('/', 'ProdutoController@telaProdutoGrade')->name('inicial');	
+	Route::get('/logout', 'UserController@logout');	
+	Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');	
 
 	Route::middleware(['permissaoCliente'])->group(function(){
 		//Todas as rotas aqui dentro, o usuário precisará estar cadastrado e ser cliente (Usuario Cliente)
@@ -38,14 +39,12 @@ Route::middleware(['auth'])->group(function(){
 		//* E-Commerce *//
 		/* Telas */		
 		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('tela_carrinho');				
-		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');		
-		Route::get('/tela/produtos/grade', 'ProdutoController@telaProdutoGrade')->name('tela_produtos_grade');
-		Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');		
-		Route::get('/tela/carrinho/finalizar', 'VendaController@telaFinal')->name('tela_finalizar_venda');		
+		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');
 
 		/* Funções */	
 		Route::post('/carrinho/adicionar', 'VendaController@addCarrinho')->name('adicionar_carrinho');
 		Route::get('/carrinho/remover/{id}', 'VendaController@removerCarrinho')->name('remover_carrinho');
+		Route::post('/venda/finalizar', 'VendaController@finalizar')->name('finalizar_venda');
 	});
 
 	Route::middleware(['permissaoAdmin'])->group(function(){

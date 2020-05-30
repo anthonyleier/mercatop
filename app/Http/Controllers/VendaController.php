@@ -45,7 +45,7 @@ class VendaController extends Controller
         $id_produto = $req->input('id_produto');
         $qtde = $req->input('quantidade');
 
-        if($qtde == 0) $qtde = 1;
+        if($qtde <= 0) $qtde = 1;
         
         $p = Produto::find($id_produto);
 
@@ -88,11 +88,15 @@ class VendaController extends Controller
         return view('venda.listarVendasGeral', ['lista' => $lista]);
     }
 
-    public function telaFinal(){
+    public function finalizar(Request $req){
 
 		$idVenda = session()->get('idVenda');
+
+		$endereco = $req->input('endereco_id');
+
 		$venda = Venda::find($idVenda);
 
+		$venda->id_endereco = $endereco;
 		$venda->finalizada = true;
 
 		$venda->save();

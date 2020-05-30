@@ -8,7 +8,8 @@ use App\Categoria;
 class CategoriaController extends Controller
 {
     public function telaAdicionarCategoria(){
-    	return view('categoria.cadastroCategoria');
+        $categorias = Categoria::all();
+    	return view('categoria.cadastroCategoria', ['categorias' => $categorias]);
     }
 
     public function telaAlterarCategoria($id){
@@ -22,6 +23,11 @@ class CategoriaController extends Controller
     }
 
     public function addCategoria(Request $req){
+
+        $req->validate([
+            'nome' => ['required', 'string', 'max:255']
+        ]);
+
     	$cp = new Categoria();
 
     	$nome = $req->input('nome');
@@ -43,6 +49,11 @@ class CategoriaController extends Controller
     }
 
     public function updateCategoria($id, Request $req){
+
+        $req->validate([
+            'nome' => ['required', 'string', 'max:255']
+        ]);
+        
         $cp = Categoria::find($id);
 
         $nome = $req->input('nome');

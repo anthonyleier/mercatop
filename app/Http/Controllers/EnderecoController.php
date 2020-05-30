@@ -25,6 +25,14 @@ class EnderecoController extends Controller
     }
 
     public function addEndereco(Request $req){
+
+        $req->validate([
+            'descricao' => ['required', 'string', 'max:255'],
+            'logradouro' => ['required', 'string', 'max:255'],
+            'numero' => ['required', 'string', 'max:10'],
+            'bairro' => ['required', 'string', 'max:255']
+        ]);
+
     	$e = new Endereco();
 
     	$e->descricao = $req->input('descricao');
@@ -47,6 +55,14 @@ class EnderecoController extends Controller
     }
 
     public function updateEndereco($id, Request $req){
+
+        $req->validate([
+            'descricao' => ['required', 'string', 'max:255'],
+            'logradouro' => ['required', 'string', 'max:255'],
+            'numero' => ['required', 'string', 'max:10'],
+            'bairro' => ['required', 'string', 'max:255']
+        ]);
+
         $e = Endereco::find($id);
 
         $e->descricao = $req->input('descricao');

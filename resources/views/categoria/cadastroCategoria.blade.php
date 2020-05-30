@@ -23,7 +23,12 @@
                         <div class="form-group row">
                             <label for="categoria_pai" class="col-md-4 col-form-label text-md-right">{{ __('Categoria Pai') }}</label>
                             <div class="col-md-6">
-                                <input id="categoria_pai" type="text" class="form-control">
+                                <select class="form-control" id="categoria_pai" name="categoria_pai">
+                                      <option value=""></option>
+                                @foreach($categorias as $categoria)
+                                      <option>{{$categoria->nome}}</option>
+                                @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group row mb-0">

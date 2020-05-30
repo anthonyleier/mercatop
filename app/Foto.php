@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Foto extends Model
 {
-    protected $table = 'foto';
+    protected $table = 'fotos';
     protected $primaryKey = 'id';
 
 	function produto(){
