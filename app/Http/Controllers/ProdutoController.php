@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Produto;
 use App\CategoriaProduto;
+use App\Foto;
 
 class ProdutoController extends Controller
 {
@@ -22,7 +23,8 @@ class ProdutoController extends Controller
 
      public function telaListarProduto(){
         $lista = Produto::all();
-        return view('produto.listarProduto', ['lista' => $lista]);
+        $foto = Foto::all();
+        return view('produto.listarProduto', ['lista' => $lista, 'foto' => $foto]);
     }
 
     public function telaProdutoLista(){
@@ -42,6 +44,7 @@ class ProdutoController extends Controller
 
     public function addProduto(Request $req){
     	$p = new Produto();
+        $f = new Foto();
 
     	$nome = $req->input('nome');
     	$quantidade = $req->input('quantidade');
@@ -50,6 +53,7 @@ class ProdutoController extends Controller
     	$id_categoria = $req->input('id_categoria');
     	$slug = Str::of($nome)->slug('-');
 
+        $nome_arq = $req->file('upload'); 
 
         $p->nome = $nome;
         $p->quantidade = $quantidade;
@@ -58,12 +62,24 @@ class ProdutoController extends Controller
         $p->id_categoria = $id_categoria;
         $p->slug = $slug;
 
+        $f->nome = $nome_arq;
+        $p->save();
+        $f->id_produto = $p->id;
+        $f->save();
+
+        $nome_foto = $p->nome." ".$p->id;
+        $nome_foto = Str::of($nome_foto)->slug('-');
+        $p->slug = $nome_foto;
+        $nome_foto = $nome_foto . "." . $nome_arq->extension();
+
+        $nome_foto = $nome_arq->storeAs('foto_produto', $nome_foto);
+
+        $f->nome = "upload/$nome_foto";
     	if($p->save()){
     		session([
                 'mensagem' => 'Produto registrado com sucesso.'
             ]);
-            $p->slug = Str::of($p->nome." ".$p->id)->slug('-');
-            $p->save();
+            $f->save();
     	}else{
     		session([
                 'mensagem' => 'O produto não foi registrado.'

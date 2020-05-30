@@ -16,4 +16,7 @@ class Produto extends Model
     	return $this->belongsToMany('App\Produto', 'produto_venda', 'id_produto', 'id_venda')
     	->withPivot(['quantidade', 'subtotal'])->withTimestamps();
     }
+    function foto(){
+    	return $this->hasMany('App\Produto', 'id_produto', 'id');
+    }
 }

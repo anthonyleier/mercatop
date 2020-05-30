@@ -7,7 +7,7 @@
                 <div class="card-header">{{ __('Cadastro de Produto') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('registrar_produto') }}">
+                    <form method="POST" action="{{ route('registrar_produto') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="nome" class="col-md-4 col-form-label text-md-right">{{ __('Nome do Produto') }}</label>
@@ -47,6 +47,12 @@
                                     <option value="{{ $p->id }}">{{ $p->nome }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="valor" class="col-md-4 col-form-label text-md-right">{{ __('Imagem') }}</label>
+                            <div class="col-md-6">
+                                <input name="upload" type="file" class="form-control">
                             </div>
                         </div>
                         <div class="form-group row">
