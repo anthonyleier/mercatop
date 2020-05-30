@@ -32,8 +32,28 @@ class ProdutoController extends Controller
         return view('e-commerce.produtoLista', ['listaProdutos' => $listaProdutos]);
     }
 
-    public function telaProdutoGrade(){
-        $listaProdutos = Produto::all();
+    public function telaProdutoGrade(Request $req){
+
+        $tamanhoPag = 2;
+        $busca = "";
+        
+
+        if($req->query('busca')){
+            $busca = $req->query('busca');
+
+            $listaProdutos = Produto::where('nome', 'LIKE', "%$busca%"); 
+            $listaProdutos = $listaProdutos->paginate($tamanhoPag);
+        }else{
+            $listaProdutos = Produto::paginate($tamanhoPag);
+        }
+
+        if($busca != null) {
+            $parametros["busca"] = $busca;
+            $listaProdutos = $listaProdutos->appends($parametros);
+        }
+
+
+
         return view('e-commerce.produtoGrade', ['listaProdutos' => $listaProdutos]);        
     }
 

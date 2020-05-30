@@ -38,8 +38,7 @@ Route::middleware(['auth'])->group(function(){
 		//* E-Commerce *//
 		/* Telas */		
 		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('tela_carrinho');				
-		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');		
-		Route::get('/tela/produtos/grade', 'ProdutoController@telaProdutoGrade')->name('tela_produtos_grade');
+		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');
 		Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');	
 
 		/* Funções */	

@@ -17,6 +17,12 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             @if (Auth::user()->verificaCliente())
+                            <form action="{{route('inicial')}}">
+                                <li class="nav-item">
+                                    <input type="text" name="busca" placeholder="O que você quer agora?">
+                                    <button type="submit">Buscar</button>
+                                </li>
+                            </form>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{route('tela_adicionar_endereco')}}">Cadastrar Endereço</a>
                             </li>

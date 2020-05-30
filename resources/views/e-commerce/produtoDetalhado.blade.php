@@ -28,7 +28,7 @@
         <div class="col-md-6 text-right">
         		<div>
         			<h2>{{$produto->nome}}</h2>
-	            	<p>{{$produto->id_categoria}}</p> <!-- Arrumar relacionamento e colocar o nome real -->
+	            	<p>{{$produto->categoria->nome}}</p> <!-- Arrumar relacionamento e colocar o nome real -->
 	            	<p style="font-size:20px;">{{$produto->descricao}}</p>
         		</div>
         		<div style="margin-top: 50px;">
