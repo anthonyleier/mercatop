@@ -45,7 +45,7 @@ class VendaController extends Controller
         $id_produto = $req->input('id_produto');
         $qtde = $req->input('quantidade');
 
-        if($qtde == 0) $qtde = 1;
+        if($qtde <= 0) $qtde = 1;
         
         $p = Produto::find($id_produto);
 

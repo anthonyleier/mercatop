@@ -35,9 +35,13 @@
         			<h4 style="font-size:55px;" class="mb-5">R$ {{$produto->valor}}</h4>
                     <form method="POST" action="{{ route('adicionar_carrinho') }}">
                         @csrf
-                        <input type="text" class="form-control" placeholder="quantidade" name="quantidade">
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6"><input type="text" class="form-control" placeholder="Quantidade" name="quantidade"></div>
+                        </div>
+                        
                         <input type="text" class="form-control" value="{{$produto->id}}" name="id_produto" hidden>
-            		    <button type="submit" class="btn btn-primary btn-block btn-lg">Comprar Agora</button>
+            		    <button type="submit" class="btn btn-primary btn-block btn-lg mt-5">Comprar Agora</button>
                     </form>
         		</div>
         	</div>

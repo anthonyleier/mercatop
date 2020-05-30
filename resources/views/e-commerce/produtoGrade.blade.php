@@ -3,7 +3,7 @@
 
 <div class="row mt-3">
     @foreach($listaProdutos as $produto)
-    <div class="col-md-3 pr-5">
+    <div class="col-md-3 col-sm-6 pr-5">
         <div class="card" style="width: 18rem;">
             <a href="{{route('tela_detalhes', ['slug' => $produto->slug])}}">
             	@if(isset($produto->fotos->first()->nome))

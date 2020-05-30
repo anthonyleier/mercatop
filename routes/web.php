@@ -18,7 +18,8 @@ Route::middleware(['auth'])->group(function(){
 	//Todas as rotas aqui dentro, o usuário precisará estar cadastrado
 
 	Route::get('/', 'ProdutoController@telaProdutoGrade')->name('inicial');	
-	Route::get('/logout', 'UserController@logout');
+	Route::get('/logout', 'UserController@logout');	
+	Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');	
 
 	Route::middleware(['permissaoCliente'])->group(function(){
 		//Todas as rotas aqui dentro, o usuário precisará estar cadastrado e ser cliente (Usuario Cliente)
@@ -39,7 +40,6 @@ Route::middleware(['auth'])->group(function(){
 		/* Telas */		
 		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('tela_carrinho');				
 		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');
-		Route::get('/tela/produtos/detalhar/{slug}', 'ProdutoController@telaDetalhes')->name('tela_detalhes');	
 
 		/* Funções */	
 		Route::post('/carrinho/adicionar', 'VendaController@addCarrinho')->name('adicionar_carrinho');

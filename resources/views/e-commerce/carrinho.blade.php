@@ -28,7 +28,11 @@
     	@csrf
 	    <div class="form-group">
 	        <label for="endereco">Endereço de Entrega</label>
-	        <select class="form-control" id="endereco" name="endereco_id">
+            @if(Auth::user()->enderecos->first() == NULL)
+                <p class="alert alert-danger">Por favor cadastre um endereço no menu usuário primeiro</p>
+                <a href="{{route('tela_listar_endereco')}}"><button class="btn btn-primary btn-block mb-3" type="button">Meus Endereços</button></a>
+            @endif
+	        <select class="form-control" id="endereco" name="endereco_id">                
 	        	@foreach(Auth::user()->enderecos as $endereco)
 	            	<option value="{{$endereco->id}}">{{$endereco->logradouro.", ".$endereco->numero}}</option>
 	            @endforeach

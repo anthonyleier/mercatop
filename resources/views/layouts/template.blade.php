@@ -3,6 +3,19 @@
     <head>
         <title>Mercatop</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+        <style type="text/css">
+            #inputpesquisa {
+                margin-left: 150px;
+                width: 500px;
+            }
+            #menu {
+                padding-left: 50px;
+            }
+            #carrinho{
+                margin-left: 200px;
+                padding-top: 4px;
+            }
+        </style>
     </head>
     <body class="container-fluid">
         <div class="row">
@@ -16,56 +29,32 @@
                     @if (Auth::check())
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            @if (Auth::user()->verificaCliente())
-                            <form action="{{route('inicial')}}">
-                                <li class="nav-item">
-                                    <input type="text" name="busca" placeholder="O que você quer agora?">
-                                    <button type="submit">Buscar</button>
-                                </li>
+                            <li>
+                            <form class="form-inline" action="{{route('inicial')}}">
+                                <input id="inputpesquisa" class="form-control mr-sm-2" type="search" placeholder="O que você quer agora?" aria-label="Search" name="busca" />
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
                             </form>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_adicionar_endereco')}}">Cadastrar Endereço</a>
+                        </li>
+                            <li class="d-sm-none d-md-block d-none">
+                               <a href="{{route('tela_carrinho')}}"><img id="carrinho" src="/storage/carrinho.png" width="30"></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_listar_endereco')}}">Meus Endereços</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_carrinho')}}">Carrinho</a>
-                            </li>
-                            @endif @if (Auth::user()->verificaAdmin())
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_listar_users')}}">Listar Usuários</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_adicionar_cidade')}}">Cadastrar Cidade</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_listar_cidade')}}">Listar Cidades</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_adicionar_categoria')}}">Cadastrar Categoria</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_listar_categoria')}}">Listar Categoria</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_adicionar_produto')}}">Cadastrar Produto</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_listar_produto')}}">Listar Produto</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{route('tela_listar_venda_geral')}}">Listar Vendas</a>
-                            </li>
+                            <div class="dropdown text-light" id="menu">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name." "}}</button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                                    @if (Auth::user()->verificaCliente())
+                                    <a href="{{route('tela_listar_endereco')}}"><button class="dropdown-item" type="button">Meus Endereços</button></a>
+                                    @endif @if (Auth::user()->verificaAdmin())
+                                    <a href="{{route('tela_listar_users')}}"><button class="dropdown-item" type="button">Usuários</button></a>
+                                    <a href="{{route('tela_listar_cidade')}}"><button class="dropdown-item" type="button">Cidades</button></a>
+                                    <a href="{{route('tela_listar_categoria')}}"><button class="dropdown-item" type="button">Categorias</button></a>
+                                    <a href="{{route('tela_listar_produto')}}"><button class="dropdown-item" type="button">Produtos</button></a>
+                                    <a href="{{route('tela_listar_venda_geral')}}"><button class="dropdown-item" type="button">Vendas</button></a>
+                                    @endif
+                                    <a href="{{route('logout')}}"><button class="dropdown-item" type="button">Sair</button></a>
+                                </div>
+                            </div>
                             @endif
                         </ul>
-                        <div class="text-light mr-4">
-                            {{Auth::user()->name}}
-                        </div>
-                        <div class="text-light">
-                            <a class="btn btn-primary btn-sm" href="{{route('logout')}}">Sair</a>
-                        </div>
-                        @endif
                     </div>
                 </nav>
             </div>
@@ -75,9 +64,7 @@
                     <div class="col-md-10">
                         @if (session()->has('mensagem'))
                         <div class="alert alert-dark mt-4">{{session('mensagem')}}</div>
-                        {{ session()->forget('mensagem') }} 
-                        @endif 
-                        @yield('pagina')
+                        {{ session()->forget('mensagem') }} @endif @yield('pagina')
                     </div>
                     <div class="col-md-1"></div>
                 </div>
