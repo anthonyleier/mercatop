@@ -28,7 +28,7 @@ class CidadeController extends Controller
     	$c->estado = $req->input('estado');
 
     	$req->validate([
-    	    'nome' => ['required', 'string', 'max:75', 'alpha'],
+    	    'nome' => ['required', 'string', 'max:75'],
     	    'estado' => ['required', 'string', 'max:75', 'alpha']
     	]);
 
@@ -51,7 +51,7 @@ class CidadeController extends Controller
         $c->estado = $req->input('estado');
 
         $req->validate([
-            'nome' => ['required', 'string', 'max:75', 'alpha'],
+            'nome' => ['required', 'string', 'max:75'],
             'estado' => ['required', 'string', 'max:75', 'alpha']
         ]);
 

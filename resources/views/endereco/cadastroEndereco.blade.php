@@ -10,18 +10,7 @@
                     <form method="POST" action="{{route('registrar_endereco')}}">
                         @csrf
                         <div class="form-group row">
-                            <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Descrição') }}</label>
-                            <div class="col-md-6">
-                                <input id="descricao" type="text" class="form-control @error('descricao') is-invalid @enderror" name="descricao" required autocomplete="descricao" autofocus />
-
-                                @error('descricao')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="logradouro" class="col-md-4 col-form-label text-md-right">{{ __('Logradouro') }}</label>
+                            <label for="logradouro" class="col-md-4 col-form-label text-md-right">{{ __('Rua') }}</label>
                             <div class="col-md-6">
                                 <input id="logradouro" type="text" class="form-control @error('logradouro') is-invalid @enderror" name="logradouro" required autocomplete="logradouro" />
 
@@ -63,6 +52,17 @@
                                 </select>
 
                                 @error('cidade')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Descrição') }}</label>
+                            <div class="col-md-6">
+                                <input id="descricao" type="text" class="form-control @error('descricao') is-invalid @enderror" name="descricao" required autocomplete="descricao" autofocus />
+
+                                @error('descricao')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>

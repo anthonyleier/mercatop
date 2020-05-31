@@ -41,7 +41,7 @@
                         </div>
                         
                         <input type="text" class="form-control" value="{{$produto->id}}" name="id_produto" hidden>
-            		    <button type="submit" class="btn btn-primary btn-block btn-lg mt-5">Comprar Agora</button>
+            		    <button type="submit" class="btn btn-primary btn-block btn-lg mt-5">Adicionar ao Carrinho</button>
                     </form>
         		</div>
         	</div>

@@ -52,7 +52,9 @@ class ProdutoController extends Controller
             $listaProdutos = $listaProdutos->appends($parametros);
         }
 
-
+        if($listaProdutos->first() == null){
+            session(['mensagem' => 'Esta busca não retornou resultados.']);
+        }
 
         return view('e-commerce.produtoGrade', ['listaProdutos' => $listaProdutos]);        
     }
@@ -67,8 +69,8 @@ class ProdutoController extends Controller
 
         $req->validate([
             'nome' => ['required', 'string', 'max:255'],
-            'quantidade' => ['required'],
-            'valor' => ['required'],
+            'quantidade' => ['required', 'numeric', 'min:1'],
+            'valor' => ['required',  'numeric', 'min:1'],
             'descricao' => ['required', 'string', 'max:255'],
         ]);
 
@@ -169,7 +171,6 @@ class ProdutoController extends Controller
     		session([
                 'mensagem' => 'Produto registrado com sucesso.'
             ]);
-            $f->save();
     	}else{
     		session([
                 'mensagem' => 'O produto não foi registrado.'
@@ -182,8 +183,8 @@ class ProdutoController extends Controller
 
         $req->validate([
             'nome' => ['required', 'string', 'max:255'],
-            'quantidade' => ['required'],
-            'valor' => ['required'],
+            'quantidade' => ['required', 'numeric', 'min:1'],
+            'valor' => ['required', 'numeric', 'min:1'],
             'descricao' => ['required', 'string', 'max:255'],
         ]);
         
@@ -284,7 +285,6 @@ class ProdutoController extends Controller
             session([
                 'mensagem' => 'Produto registrado com sucesso.'
             ]);
-            $f->save();
         }else{
             session([
                 'mensagem' => 'O produto não foi registrado.'

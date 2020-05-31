@@ -8,18 +8,21 @@
 		<th>Valor</th>
 		<th>Endereço de Destino</th>
 	</thead>
-	@foreach($lista as $venda)
 	<tbody>
-		<td>{{$venda->id}}</td>
-		<td>{{$venda->user->name}}</td>
-		<td>{{$venda->valor}}</td>
-		@if(isset($venda->endereco))
-			<td>{{$venda->endereco->logradouro}}</td>
-		@else
-			<td>Endereço Inválido</td>
+	@foreach($lista as $venda)	
+	<tr>
+		@if($venda->finalizada)
+			<td>{{$venda->id}}</td>
+			<td>{{$venda->user->name}}</td>
+			<td>{{$venda->valor}}</td>
+			@if(isset($venda->endereco))
+				<td>{{$venda->endereco->logradouro.", ".$venda->endereco->numero}}</td>
+			@else
+				<td>Endereço Deletado ou Inválido</td>
+			@endif
 		@endif
-	</tbody>
+	</tr>	
 	@endforeach
-
+	</tbody>
 </table>
 @endsection

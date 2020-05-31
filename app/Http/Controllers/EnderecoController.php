@@ -29,7 +29,7 @@ class EnderecoController extends Controller
         $req->validate([
             'descricao' => ['required', 'string', 'max:255'],
             'logradouro' => ['required', 'string', 'max:255'],
-            'numero' => ['required', 'string', 'max:10'],
+            'numero' => ['required', 'numeric', 'max:999'],
             'bairro' => ['required', 'string', 'max:255']
         ]);
 
