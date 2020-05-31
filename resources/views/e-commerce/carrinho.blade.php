@@ -20,7 +20,7 @@
             <td>{{$item->valor}}</td>
             <td>{{$item->pivot->quantidade}}</td>
             <td>{{$item->pivot->subtotal}}</td>
-            <td><a href="#" onclick="remover({{$item->pivot->id}})" class="btn btn-danger btn-block">Excluir</a></td>
+            <td><a href="#" onclick="remover({{$item->pivot->id}})" class="btn btn-danger btn-block">Remover</a></td>
         </tbody>
         @endforeach
     </table>
@@ -38,11 +38,18 @@
 	            @endforeach
 	        </select>
 	    </div>
-	    <div class="text-right">
-        	<p class="font-weight-bolder">Total da Venda: R${{$total}}</p>
-       		<button type="submit" class="btn btn-primary btn-block">Finalizar Venda</a>
-    	</div>
-	</form>    
+        <div class="text-right">
+            <p class="font-weight-bolder">Total da Venda: R${{$total}}</p>
+            <button type="submit" class="btn btn-success btn-block">Finalizar Compra</button>
+        </div>
+    </form> 
+        <div class="text-center mt-3">
+            <p class="font-weight-bold">OU</p>
+        </div>
+        <div class="text-right">
+            <a class="btn btn-primary btn-block" href="{{route('inicial')}}">Continuar Comprando</a>
+        </div>
+	  
     <script>
         function remover(id) {
             if (confirm("Deseja remover o produto de id: " + id + "?")) {

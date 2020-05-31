@@ -21,7 +21,7 @@ class VendaController extends Controller
 			session([
                 'mensagem' => 'Seu carrinho está vazio.'
             ]);         
-            return back();
+            return redirect()->route('inicial');
 		}	
 	}
 
@@ -46,6 +46,13 @@ class VendaController extends Controller
         $qtde = $req->input('quantidade');
 
         if($qtde <= 0) $qtde = 1;
+
+        if($qtde >= 9999) {
+        	$qtde = 9999;
+        	session([
+                'mensagem' => 'Como a quantidade para este produto é muito alta, ela foi automaticamente definida como "9999", pois o limite de compra é de 10000'
+            ]);
+        }
         
         $p = Produto::find($id_produto);
 
@@ -96,13 +103,19 @@ class VendaController extends Controller
 
 		$venda = Venda::find($idVenda);
 
-		$venda->id_endereco = $endereco;
-		$venda->finalizada = true;
+		if($venda->produtos->first()){
+			$venda->id_endereco = $endereco;
+			$venda->finalizada = true;
 
-		$venda->save();
+			$venda->save();
 
-		session()->forget('idVenda');
+			session()->forget('idVenda');
 
-    	return view('venda.finalizarVenda');
+    		return view('venda.finalizarVenda');
+		}else{
+			session(['mensagem' => 'Não é possível finalizar a compra com o carrinho vazio.']);
+
+            return redirect()->route('tela_carrinho');
+		}		
     }
 }

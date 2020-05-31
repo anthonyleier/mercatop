@@ -44,7 +44,11 @@
                             <div class="col-md-6">
                                 <select class="custom-select" name="id_categoria" value="{{$produto->id_categoria}}">
                                     @foreach($cp as $p)
-                                    <option value="{{ $p->id }}">{{ $p->nome }}</option>
+                                    @if($produto->id_categoria == $p->id)
+                                        <option selected value="{{ $p->id }}">{{ $p->nome }}</option>
+                                    @else
+                                        <option value="{{ $p->id }}">{{ $p->nome }}</option>
+                                    @endif
                                     @endforeach
                                 </select>
                             </div>

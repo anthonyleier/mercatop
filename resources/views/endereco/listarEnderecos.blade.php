@@ -3,7 +3,6 @@
 
 <table class="table table-bordered table-striped mt-4">
 	<thead>
-		<th>ID</th>
 		<th>Descrição</th>
 		<th>Logradouro</th>
 		<th>Número</th>
@@ -14,7 +13,6 @@
 	</thead>
 	@foreach (Auth::user()->enderecos as $elemento)	
 	<tbody>
-		<td>{{$elemento->id}}</td>
 		<td>{{$elemento->descricao}}</td>
 		<td>{{$elemento->logradouro}}</td>
 		<td>{{$elemento->numero}}</td>

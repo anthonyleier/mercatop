@@ -55,8 +55,8 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cpf' => ['required', 'string', 'size:11', 'unique:users'],
             'rg' => ['required', 'string', 'max:13', 'unique:users'],
-            'dataNascimento' => ['required', 'date'],
-            'telefone' => ['required', 'string', 'min:8']
+            'dataNascimento' => ['required', 'date', 'date_format:Y-m-d', 'before:today'],
+            'telefone' => ['required', 'string', 'min:8', 'max:20']
         ]);
     }
 
