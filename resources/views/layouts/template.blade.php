@@ -23,12 +23,12 @@
                 border-color: #ff9933 !important;
             }
 
-            #menu {
+            #menu, #rodape {
                 background-color: #2b2b2b !important;
                 border-color: #2b2b2b !important;
             }
 
-            #botao_busca {
+            #botao_verde {
                 background-color: #339966 !important;
                 border-color: #339966 !important;
             }
@@ -52,7 +52,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <form class="form-inline ml-5 pr-5" action="{{route('inicial')}}">
                             <input id="inputpesquisa" class="form-control pr-5" type="search" placeholder="O que você quer?" aria-label="Search" name="busca" />
-                            <button id="botao_busca" class="btn btn-outline-success ml-1" type="submit"><img src="/storage/icones/busca.png" width="25" /></button>
+                            <button id="botao_verde" class="btn btn-outline-success ml-1" type="submit"><img src="/storage/icones/busca.png" width="25" /></button>
                         </form>
                         <a class="ml-auto pl-5" href="{{route('tela_carrinho')}}"><img id="carrinho" src="/storage/icones/carrinho.png" width="30" /></a>
 
@@ -79,16 +79,25 @@
             <div class="container-fluid">
                 <div class="row">
                     @yield('pre-pagina')
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
+                    <div class="col-md-0"></div>
+                    <div class="col-md-12">
                         @if (session()->has('mensagem'))
                         <div class="alert alert-dark mt-4">{{session('mensagem')}}</div>
                         {{ session()->forget('mensagem') }} @endif @yield('pagina')
                     </div>
-                    <div class="col-md-1"></div>
+                    <div class="col-md-0"></div>
                 </div>
             </div>
         </div>
+        <div class="row mt-5">
+            <div id="rodape" class="col-md-12">
+                <nav id="rodape" class="navbar navbar-dark bg-dark justify-content-center">
+                    <a class="navbar-brand" href="{{route('inicial')}}"><img src="/storage/icones/logo.png" width="75" /></a>
+                </nav>
+            </div>
+        </div>
+
+
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
