@@ -25,25 +25,25 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-6 text-right">
+        <div class="col-md-6 text-left">
         		<div>
         			<h2>{{$produto->nome}}</h2>
 	            	<p>{{$produto->categoria->nome}}</p> <!-- Arrumar relacionamento e colocar o nome real -->
-	            	<p style="font-size:20px;">{{$produto->descricao}}</p>
         		</div>
-        		<div style="margin-top: 50px;">
-        			<h4 style="font-size:55px;" class="mb-5">R$ {{$produto->valor}}</h4>
+        		<div class="mt-5">
                     <form method="POST" action="{{ route('adicionar_carrinho') }}">
                         @csrf
-                        <div class="row">
-                            <div class="col-md-6"></div>
-                            <div class="col-md-6"><input type="text" class="form-control" placeholder="Quantidade" name="quantidade"></div>
-                        </div>
-                        
+                        <div class="row mt-5">
+                            <div class="col-md-6"><h4 style="font-size:55px;" class="mb-5">R$ {{$produto->valor}}</h4></div>
+                            <div class="col-md-6 mt-3"><input type="text" class="form-control" placeholder="Quantidade" name="quantidade"></div>
+                        </div>                        
                         <input type="text" class="form-control" value="{{$produto->id}}" name="id_produto" hidden>
-            		    <button type="submit" class="btn btn-primary btn-block btn-lg mt-5">Adicionar ao Carrinho</button>
+            		    <button type="submit" id="botao_verde" class="btn btn-primary btn-block btn-lg mt-5">Adicionar ao Carrinho</button>
                     </form>
         		</div>
+                <div class="mt-4">
+                    <p style="font-size:20px;">{{$produto->descricao}}</p>
+                </div>
         	</div>
         </div>
     </div>
