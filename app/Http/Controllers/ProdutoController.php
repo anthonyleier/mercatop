@@ -37,9 +37,12 @@ class ProdutoController extends Controller
         $tamanhoPag = 16;
         $busca = "";
         
+        $mostrarCarousel = true;
 
         if($req->query('busca')){
             $busca = $req->query('busca');
+
+            $mostrarCarousel = false;
 
             $listaProdutos = Produto::where('nome', 'LIKE', "%$busca%"); 
             $listaProdutos = $listaProdutos->paginate($tamanhoPag);
@@ -56,7 +59,7 @@ class ProdutoController extends Controller
             session(['mensagem' => 'Esta busca não retornou resultados.']);
         }
 
-        return view('e-commerce.produtoGrade', ['listaProdutos' => $listaProdutos]);        
+        return view('e-commerce.produtoGrade', ['listaProdutos' => $listaProdutos, 'mostrarCarousel' => $mostrarCarousel]);        
     }
 
     public function telaDetalhes($slug){
