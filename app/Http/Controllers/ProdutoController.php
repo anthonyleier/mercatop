@@ -69,8 +69,8 @@ class ProdutoController extends Controller
 
         $req->validate([
             'nome' => ['required', 'string', 'max:255'],
-            'quantidade' => ['required'],
-            'valor' => ['required'],
+            'quantidade' => ['required', 'numeric', 'min:1'],
+            'valor' => ['required',  'numeric', 'min:1'],
             'descricao' => ['required', 'string', 'max:255'],
         ]);
 
@@ -183,8 +183,8 @@ class ProdutoController extends Controller
 
         $req->validate([
             'nome' => ['required', 'string', 'max:255'],
-            'quantidade' => ['required'],
-            'valor' => ['required'],
+            'quantidade' => ['required', 'numeric', 'min:1'],
+            'valor' => ['required', 'numeric', 'min:1'],
             'descricao' => ['required', 'string', 'max:255'],
         ]);
         

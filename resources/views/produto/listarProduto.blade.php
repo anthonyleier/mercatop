@@ -19,7 +19,7 @@
 		<td>{{$produto->nome}}</td>
 		<td>{{$produto->quantidade}}</td>
 		<td>{{$produto->valor}}</td>
-		<td>{{$produto->categoria->nome}}</td>
+		@if(isset($produto->categoria->nome))<td>{{$produto->categoria->nome}}</td>@else<td>Categoria Deletada</td>@endif
 		@php
 			$qtdFotos = 0;
 			foreach($produto->fotos as $foto){

@@ -14,7 +14,8 @@ class CategoriaController extends Controller
 
     public function telaAlterarCategoria($id){
         $categoria = Categoria::find($id);
-        return view('categoria.alterarCategoria', ['categoria' => $categoria]);        
+        $listaCategorias = Categoria::all();
+        return view('categoria.alterarCategoria', ['categoria' => $categoria, 'listaCategorias' => $listaCategorias]);        
     }
 
     public function telaListarCategoria(){
