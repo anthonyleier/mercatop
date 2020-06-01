@@ -4,7 +4,7 @@
 
 @if($mostrarCarousel)
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -30,13 +30,14 @@
         <span class="sr-only">Próximo</span>
         </a>
     </div>
+
 @endif
 @endsection 
 
 @section('pagina')
 <div class="row mt-3">
     @foreach($listaProdutos as $produto)
-    <div class="col-md-3 col-sm-6 mt-4">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
         <div class="card" style="width: 18rem;">
             <a href="{{route('tela_detalhes', ['slug' => $produto->slug])}}">
             @if(isset($produto->fotos->first()->nome))
