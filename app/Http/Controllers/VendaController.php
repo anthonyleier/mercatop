@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Venda;
+use App\Produto;
+use Auth;
+
+class VendaController extends Controller
+{
+	public function telaCarrinho(){
+
+		if(session()->has('idVenda')){
+			$idVenda = session()->get('idVenda');
+			$venda = Venda::find($idVenda);
+			$carrinho = $venda->produtos;
+			$total = $venda->valor;
+			return view('e-commerce.carrinho', ['carrinho' => $carrinho, 'total' => $total]);
+		}else{
+			session([
+                'mensagem' => 'Seu carrinho está vazio.'
+            ]);         
+            return redirect()->route('inicial');
+		}	
+	}
+
+	public function addCarrinho(Request $req){
+
+		$id_cliente = Auth::user()->id;
+
+		if(session()->has('idVenda')){
+			$idVenda = session()->get('idVenda');
+			$v = Venda::find($idVenda);
+		}else{
+			$v = new Venda();
+			$v->valor = 0;
+		}
+        
+        $v->id_cliente = $id_cliente;
+        $v->finalizada = false;
+
+        $v->save();
+
+        $id_produto = $req->input('id_produto');
+        $qtde = $req->input('quantidade');
+
+        if($qtde <= 0) $qtde = 1;
+
+        if($qtde >= 9999) {
+        	$qtde = 9999;
+        	session([
+                'mensagem' => 'Como a quantidade para este produto é muito alta, ela foi automaticamente definida como "9999", pois o limite de compra é de 10000'
+            ]);
+        }
+        
+        $p = Produto::find($id_produto);
+
+        $subtotal = $p->valor * $qtde;
+
+        $colunas_pivot = ['quantidade' => $qtde, 'subtotal' => $subtotal];
+
+        $v->produtos()->attach($id_produto, $colunas_pivot);
+        $v->valor += $subtotal;
+        $v->save();
+		
+		session(['idVenda' => $v->id]);
+
+		return redirect()->route('tela_carrinho');
+	}
+
+	public function removerCarrinho($id_pivot){
+
+		$idVenda = session()->get('idVenda');
+		$venda = Venda::find($idVenda);
+
+		$valorRetirar = 0;
+
+		foreach ($venda->produtos as $vp) {
+			if($vp->pivot->id == $id_pivot){
+				$valorRetirar = $vp->pivot->subtotal;
+				break;
+			}
+		}
+
+		$venda->valor = $venda->valor - $valorRetirar;
+		$venda->produtos()->wherePivot('id', '=', $id_pivot)->detach();
+		$venda->save();
+
+		return redirect()->route('tela_carrinho');		
+	}
+	
+    public function telaListarVendaGeral(){
+        $lista = Venda::all();
+        return view('venda.listarVendasGeral', ['lista' => $lista]);
+    }
+
+    public function finalizar(Request $req){
+
+		$idVenda = session()->get('idVenda');
+
+		$endereco = $req->input('endereco_id');
+
+		$venda = Venda::find($idVenda);
+
+		if($venda->produtos->first()){
+			$venda->id_endereco = $endereco;
+			$venda->finalizada = true;
+
+			$venda->save();
+
+			session()->forget('idVenda');
+
+    		return view('venda.finalizarVenda');
+		}else{
+			session(['mensagem' => 'Não é possível finalizar a compra com o carrinho vazio.']);
+
+            return redirect()->route('tela_carrinho');
+		}		
+    }
+}
