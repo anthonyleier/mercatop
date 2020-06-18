@@ -90,8 +90,8 @@
         </div>
         <div class="row mt-5">
             <div id="rodape" class="col-md-12">
-                <nav id="rodape" class="navbar navbar-dark bg-dark justify-content-center">
-                    <a class="navbar-brand" href="{{route('inicial')}}"><img src="/storage/icones/logo.png" width="75" /></a>
+                <nav id="rodape" class="navbar fixed-bottom navbar-dark bg-dark justify-content-center">
+                    <a class="navbar-brand" href="{{route('inicial')}}"><img src="/storage/icones/texto.png" width="75" /></a>
                 </nav>
             </div>
         </div>
