@@ -91,6 +91,17 @@ Route::middleware(['auth'])->group(function(){
 		//* Vendas *//
 		/* Telas*/
 		Route::get('/tela/venda/listar/geral', 'VendaController@telaListarVendaGeral')->name('tela_listar_venda_geral');
+
+		//* Links *//
+		/* Telas */
+		Route::get('/tela/link/cadastrar', 'LinkController@telaAdicionarLink')->name('tela_adicionar_link');
+		Route::get('/tela/link/alterar/{id}', 'LinkController@telaAlterarLink')->name('tela_alterar_link');
+		Route::get('/tela/link/listar', 'LinkController@telaListarLink')->name('tela_listar_link');
+
+		/* Funções */
+		Route::post('/link/registrar','LinkController@addLink')->name('registrar_link');
+		Route::post('/link/atualizar/{id}', 'LinkController@updateLink')->name('alterar_link');
+		Route::get('/link/excluir/{id}', 'LinkController@deleteLink')->name('excluir_link');
 	});			
 });
 
