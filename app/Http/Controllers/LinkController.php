@@ -26,6 +26,7 @@ class LinkController extends Controller
 
         $link->nome = $req->input('nome');
         $link->endereco = $req->input('endereco');
+        $link->token = $req->input('token');
 
         if($link->save()){
             session([
@@ -45,6 +46,7 @@ class LinkController extends Controller
 
         $link->nome = $req->input('nome');
         $link->endereco = $req->input('endereco');
+        $link->token = $req->input('token');
 
         if($link->save()){
             session([

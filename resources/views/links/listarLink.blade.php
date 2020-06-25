@@ -7,6 +7,7 @@
 		<th>ID</th>
 		<th>Nome</th>
 		<th>Link</th>
+		<th>Token de Autenticação</th>
 		<th>Alteração</th>
 		<th>Exclusão</th>
 	</thead>
@@ -15,6 +16,7 @@
 		<td>{{$link->id}}</td>
 		<td>{{$link->nome}}</td>
 		<td>{{$link->endereco}}</td>
+		<td>{{$link->token}}</td>
 		<td><a href="{{route('tela_alterar_link', ['id' => $link->id])}}" class="btn btn-warning btn-block">Alterar</a></td>
 		<td><a href="#" onclick="exclui({{$link->id}})" class="btn btn-danger btn-block">Excluir</a></td>
 	</tbody>
