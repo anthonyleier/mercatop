@@ -38,7 +38,9 @@ class VendaController extends Controller
 		}
         
         $v->id_cliente = $id_cliente;
-        $v->finalizada = false;
+		$v->finalizada = false;
+		$v->statusEntrega = "Preparando";
+		$v->statusPagamento = "Aguardando Pagamento";
 
         $v->save();
 

@@ -7,6 +7,8 @@
 		<th>Nome do Cliente</th>
 		<th>Valor</th>
 		<th>Endereço de Destino</th>
+		<th>Pagamento</th>
+		<th>Entrega</th>
 	</thead>
 	<tbody>
 	@foreach($lista as $venda)	
@@ -20,6 +22,8 @@
 			@else
 				<td>Endereço Deletado ou Inválido</td>
 			@endif
+			<td>{{$venda->statusPagamento}}</td>
+			<td>{{$venda->statusEntrega}}</td>
 		@endif
 	</tr>	
 	@endforeach

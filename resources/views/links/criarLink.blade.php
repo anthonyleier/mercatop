@@ -28,7 +28,17 @@
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>                        
+                        </div>
+                        <div class="form-group row">
+                            <label for="token" class="col-md-4 col-form-label text-md-right">{{ __('Token') }}</label>
+                            <div class="col-md-6">
+                                <input id="token" type="text" class="form-control @error('token') is-invalid @enderror" name="token" required autocomplete="token" autofocus />
+
+                                @error('token')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>                           
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary btn-block">
