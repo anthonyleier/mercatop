@@ -60,6 +60,7 @@
                             <div class="dropdown-menu bg-dark text-light" aria-labelledby="dropdownMenu2">
                                 @if (Auth::user()->verificaCliente())
                                 <a id="texto_menu" href="{{route('tela_listar_endereco')}}"><button class="dropdown-item bg-dark text-light" type="button">Meus Endereços</button></a>
+                                <a id="texto_menu" href="{{route('tela_meus_pedidos')}}"><button class="dropdown-item bg-dark text-light" type="button">Meus Pedidos</button></a>
                                 @endif @if (Auth::user()->verificaAdmin())
                                 <a id="texto_menu" href="{{route('tela_listar_users')}}"><button class="dropdown-item bg-dark text-light" type="button">Usuários</button></a>
                                 <a id="texto_menu" href="{{route('tela_listar_cidade')}}"><button class="dropdown-item bg-dark text-light" type="button">Cidades</button></a>

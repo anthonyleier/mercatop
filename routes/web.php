@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function(){
 		/* Telas */		
 		Route::get('/tela/carrinho', 'VendaController@telaCarrinho')->name('tela_carrinho');				
 		Route::get('/tela/produtos/lista', 'ProdutoController@telaProdutoLista')->name('tela_produtos_lista');
+		Route::get('/tela/pedidos', 'VendaController@telaListarVendaEspecifico')->name('tela_meus_pedidos');
 
 		/* Funções */	
 		Route::post('/carrinho/adicionar', 'VendaController@addCarrinho')->name('adicionar_carrinho');

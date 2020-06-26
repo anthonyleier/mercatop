@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Link;
 use App\Venda;
 use App\Produto;
 use Auth;
@@ -93,8 +95,39 @@ class VendaController extends Controller
 	}
 	
     public function telaListarVendaGeral(){
-        $lista = Venda::all();
-        return view('venda.listarVendasGeral', ['lista' => $lista]);
+		$lista = Venda::all();
+
+		$cacalog = Link::where('nome', '=', 'CaçaLog')->first();
+
+		foreach ($lista as $venda){			
+			$requisicaoCacalog = Http::post($cacalog->endereco, 
+			["token" => $cacalog->token		
+			]);
+
+			if(isset($requisicaoCacalog['status'])) $venda->statusEntrega = $requisicaoCacalog['status'];
+
+			$venda->save();
+		}     
+		
+		return view('venda.listarVendasGeral', ['lista' => $lista]);
+	}
+	
+	public function telaListarVendaEspecifico(){
+		$lista = Venda::where('id_cliente', '=', Auth::user()->id)->get();
+
+		$cacalog = Link::where('nome', '=', 'CaçaLog')->first();
+
+		foreach ($lista as $venda){			
+			$requisicaoCacalog = Http::post($cacalog->endereco, 
+			["token" => $cacalog->token		
+			]);
+
+			if(isset($requisicaoCacalog['status'])) $venda->statusEntrega = $requisicaoCacalog['status'];
+
+			$venda->save();
+		}     
+		
+		return view('venda.listarVendasEspecifico', ['lista' => $lista]);
     }
 
     public function finalizar(Request $req){
@@ -113,7 +146,17 @@ class VendaController extends Controller
 
 			session()->forget('idVenda');
 
-    		return view('venda.finalizarVenda');
+			$cacapay = Link::where('nome', '=', 'CaçaPay')->first();
+
+			$requisicaoCacapay = Http::post($cacapay->endereco, 
+			["token" => $cacapay->token,
+			"cpf" => Auth::user()->cpf,
+			"nome" => Auth::user()->name,
+			"senha" => Auth::user()->password,
+			"email" => Auth::user()->email			
+			]);
+
+    		return view('venda.finalizarVenda', ['codigo' => $requisicaoCacapay->status()]);
 		}else{
 			session(['mensagem' => 'Não é possível finalizar a compra com o carrinho vazio.']);
 
