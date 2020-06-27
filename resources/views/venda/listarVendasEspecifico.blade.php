@@ -1,7 +1,8 @@
 @extends('layouts.template')
 @section('pagina')
 
-<table class="table table-bordered table-striped mt-4">
+<h3 class="mt-4">Meus Pedidos</h3>
+<table class="table table-bordered table-striped mt-1">
 	<thead>
 		<th>Número Pedido</th>
 		<th>Valor</th>
