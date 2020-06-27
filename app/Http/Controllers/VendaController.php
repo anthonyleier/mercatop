@@ -142,21 +142,30 @@ class VendaController extends Controller
 			$venda->id_endereco = $endereco;
 			$venda->finalizada = true;
 
-			$venda->save();
-
-			session()->forget('idVenda');
-
 			$cacapay = Link::where('nome', '=', 'CaçaPay')->first();
 
 			$requisicaoCacapay = Http::post($cacapay->endereco, 
 			["token" => $cacapay->token,
 			"cpf" => Auth::user()->cpf,
+			"valor" => $venda->valor,
 			"nome" => Auth::user()->name,
 			"senha" => Auth::user()->password,
 			"email" => Auth::user()->email			
 			]);
 
-    		return view('venda.finalizarVenda', ['codigo' => $requisicaoCacapay->status()]);
+			if($requisicaoCacapay->status() == 201){
+				$venda->statusPagamento = "Pagamento Confirmado";
+			}else if($requisicaoCacapay->status() == 401){
+				$venda->statusPagamento = "Pagamento Negado";
+			}else if($requisicaoCacapay->status() == 402 || $requisicaoCacapay->status() == 403 || $requisicaoCacapay->status() == 404){
+				$venda->statusPagamento = "Problema de Conexão, tente novamente";
+			}
+
+			$venda->save();
+
+			session()->forget('idVenda');
+
+    		return view('venda.finalizarVenda', ['codigo' => $requisicaoCacapay->status(), 'venda' => $venda]);
 		}else{
 			session(['mensagem' => 'Não é possível finalizar a compra com o carrinho vazio.']);
 
