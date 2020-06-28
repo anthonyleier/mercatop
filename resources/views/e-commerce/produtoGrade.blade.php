@@ -47,6 +47,14 @@
             <div class="card-body">
                 <h5 class="card-title">{{$produto->nome}}</h5>
                 <p class="card-text font-weight-bold">Preço: R${{$produto->valor}}</p>
+                <form method="POST" action="{{ route('adicionar_carrinho') }}">
+                    @csrf
+                    <div>
+                        <input type="text" class="form-control" placeholder="Quantidade" name="quantidade">                      
+                        <input type="text" class="form-control" value="{{$produto->id}}" name="id_produto" hidden>
+                        <button type="submit" id="botao_verde" class="btn btn-primary btn-block mt-1">Adicionar ao Carrinho</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
