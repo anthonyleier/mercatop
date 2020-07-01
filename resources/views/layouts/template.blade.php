@@ -57,7 +57,7 @@
 
                         <div class="dropdown ml-3">
                             <button id="menu" class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name." "}}</button>
-                            <div class="dropdown-menu bg-dark text-light" aria-labelledby="dropdownMenu2">
+                            <div class="dropdown-menu dropdown-menu-right bg-dark text-light" aria-labelledby="dropdownMenu2">
                                 @if (Auth::user()->verificaCliente())
                                 <a id="texto_menu" href="{{route('tela_listar_endereco')}}"><button class="dropdown-item bg-dark text-light" type="button">Meus Endereços</button></a>
                                 <a id="texto_menu" href="{{route('tela_meus_pedidos')}}"><button class="dropdown-item bg-dark text-light" type="button">Meus Pedidos</button></a>
