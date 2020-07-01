@@ -103,6 +103,9 @@ Route::middleware(['auth'])->group(function(){
 		Route::post('/link/registrar','LinkController@addLink')->name('registrar_link');
 		Route::post('/link/atualizar/{id}', 'LinkController@updateLink')->name('alterar_link');
 		Route::get('/link/excluir/{id}', 'LinkController@deleteLink')->name('excluir_link');
+
+		/* Dashboard */
+		Route::get('/dashboard', 'AppController@dashboard')->name('dashboard');
 	});			
 });
 
