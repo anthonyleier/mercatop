@@ -27,6 +27,7 @@ class EnderecoController extends Controller
     public function addEndereco(Request $req){
 
         $req->validate([
+            'cep' => ['required', 'string', 'max:255'],
             'descricao' => ['required', 'string', 'max:255'],
             'logradouro' => ['required', 'string', 'max:255'],
             'numero' => ['required', 'numeric', 'max:999'],
@@ -35,6 +36,7 @@ class EnderecoController extends Controller
 
     	$e = new Endereco();
 
+    	$e->cep = $req->input('cep');
     	$e->descricao = $req->input('descricao');
     	$e->logradouro = $req->input('logradouro');
     	$e->numero = $req->input('numero');
@@ -57,6 +59,7 @@ class EnderecoController extends Controller
     public function updateEndereco($id, Request $req){
 
         $req->validate([
+            'cep' => ['required', 'string', 'max:255'],
             'descricao' => ['required', 'string', 'max:255'],
             'logradouro' => ['required', 'string', 'max:255'],
             'numero' => ['required', 'string', 'max:10'],
@@ -65,6 +68,7 @@ class EnderecoController extends Controller
 
         $e = Endereco::find($id);
 
+    	$e->cep = $req->input('cep');
         $e->descricao = $req->input('descricao');
         $e->logradouro = $req->input('logradouro');
         $e->numero = $req->input('numero');
@@ -89,11 +93,11 @@ class EnderecoController extends Controller
 
         if($e->delete()){
             session([
-                'mensagem' => 'Cidade deletada com sucesso.'
+                'mensagem' => 'Endereço deletado com sucesso.'
             ]); 
         }else{
             session([
-                'mensagem' => 'A cidade não foi apagada.'
+                'mensagem' => 'O endereço não foi apagado.'
             ]);
         }
         return redirect()->route('tela_listar_endereco');

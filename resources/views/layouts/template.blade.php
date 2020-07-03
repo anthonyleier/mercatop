@@ -68,6 +68,7 @@
                                 <a id="texto_menu" href="{{route('tela_listar_produto')}}"><button class="dropdown-item bg-dark text-light" type="button">Produtos</button></a>
                                 <a id="texto_menu" href="{{route('tela_listar_venda_geral')}}"><button class="dropdown-item bg-dark text-light" type="button">Vendas</button></a>
                                 <a id="texto_menu" href="{{route('tela_listar_link')}}"><button class="dropdown-item bg-dark text-light" type="button">Links</button></a>
+                                <a id="texto_menu" href="{{route('dashboard')}}"><button class="dropdown-item bg-dark text-light" type="button">Dashboard</button></a>
                                 @endif
                                 <a id="texto_menu" href="{{route('logout')}}"><button class="dropdown-item bg-dark text-light" type="button">Sair</button></a>
                             </div>

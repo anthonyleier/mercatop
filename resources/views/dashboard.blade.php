@@ -37,7 +37,7 @@
         ]);
 
         var options = {
-          title: 'My Daily Activities'
+          title: 'Produtos mais Vendidos'
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
