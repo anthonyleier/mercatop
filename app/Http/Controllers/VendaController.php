@@ -43,7 +43,7 @@ class VendaController extends Controller
 		$v->finalizada = false;
 		$v->statusEntrega = "Preparando";
 		$v->statusPagamento = "Aguardando Pagamento";
-
+		$v->id_entrega = 0;
         $v->save();
 
         $id_produto = $req->input('id_produto');
@@ -100,14 +100,12 @@ class VendaController extends Controller
 		$cacalog = Link::where('nome', '=', 'CaçaLog')->first();
 
 		foreach ($lista as $venda){			
-			$requisicaoCacalog = Http::post($cacalog->endereco, 
-			["token" => $cacalog->token		
-			]);
+			$requisicaoCacalog = Http::get($cacalog->endereco."/".$venda->id_entrega); 
 
 			if(isset($requisicaoCacalog['status'])) $venda->statusEntrega = $requisicaoCacalog['status'];
 
 			$venda->save();
-		}     
+		}        
 		
 		return view('venda.listarVendasGeral', ['lista' => $lista]);
 	}
@@ -118,9 +116,7 @@ class VendaController extends Controller
 		$cacalog = Link::where('nome', '=', 'CaçaLog')->first();
 
 		foreach ($lista as $venda){			
-			$requisicaoCacalog = Http::post($cacalog->endereco, 
-			["token" => $cacalog->token		
-			]);
+			$requisicaoCacalog = Http::get($cacalog->endereco."/".$venda->id_entrega); 
 
 			if(isset($requisicaoCacalog['status'])) $venda->statusEntrega = $requisicaoCacalog['status'];
 
@@ -142,23 +138,48 @@ class VendaController extends Controller
 			$venda->id_endereco = $endereco;
 			$venda->finalizada = true;
 
-			$cacapay = Link::where('nome', '=', 'CaçaPay')->first();
+			$cacapay = Link::where('nome', '=', 'Caçapay')->first();
 
-			$requisicaoCacapay = Http::post($cacapay->endereco, 
-			["token" => $cacapay->token,
-			"cpf" => Auth::user()->cpf,
-			"valor" => $venda->valor,
-			"nome" => Auth::user()->name,
-			"senha" => Auth::user()->password,
-			"email" => Auth::user()->email			
-			]);
+			if($cacapay){
+				$requisicaoCacapay = Http::post($cacapay->endereco, 
+				["token" => $cacapay->token,
+				"cpf" => Auth::user()->cpf,
+				"valor" => $venda->valor,
+				"nome" => Auth::user()->name,
+				"senha" => Auth::user()->password,
+				"email" => Auth::user()->email			
+				]);
 
-			if($requisicaoCacapay->status() == 201){
-				$venda->statusPagamento = "Pagamento Confirmado";
-			}else if($requisicaoCacapay->status() == 401){
-				$venda->statusPagamento = "Pagamento Negado";
-			}else if($requisicaoCacapay->status() == 402 || $requisicaoCacapay->status() == 403 || $requisicaoCacapay->status() == 404){
-				$venda->statusPagamento = "Problema de Conexão, tente novamente";
+				if($requisicaoCacapay->status() == 201){
+					$venda->statusPagamento = "Pagamento Confirmado";
+				}else if($requisicaoCacapay->status() == 401){
+					$venda->statusPagamento = "Pagamento Negado";
+				}else if($requisicaoCacapay->status() == 402 || $requisicaoCacapay->status() == 403 || $requisicaoCacapay->status() == 404){
+					$venda->statusPagamento = "Problema de Conexão, tente novamente";
+				}
+			}
+
+			$cacalog = Link::where('nome', '=', 'Caçalog')->first();
+
+			if($cacalog){
+				$qtdFinal = 0;
+				foreach($venda->produtos as $vp){
+					$qtdFinal += $vp->pivot->quantidade;
+				}
+
+				$requisicaoCacalog = Http::post($cacalog->endereco, 
+				["token" => $cacalog->token,
+				"cep" => $venda->endereco->cep,
+				"numeroCasa" => $venda->endereco->numero,
+				"id_pedido" => $venda->id,
+				"cliente" => Auth::user()->name,
+				"qtdProdutos" => $qtdFinal
+				]); 
+
+				$dados = $requisicaoCacapay->json();
+
+				if($dados)$venda->id_entrega = $dados['id'];
+				else $venda->id_entrega = 0;
 			}
 
 			$venda->save();
