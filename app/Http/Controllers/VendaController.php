@@ -43,7 +43,6 @@ class VendaController extends Controller
 		$v->finalizada = false;
 		$v->statusEntrega = "Preparando";
 		$v->statusPagamento = "Aguardando Pagamento";
-		$v->id_entrega = 0;
         $v->save();
 
         $id_produto = $req->input('id_produto');
@@ -96,33 +95,11 @@ class VendaController extends Controller
 	
     public function telaListarVendaGeral(){
 		$lista = Venda::all();
-
-		$cacalog = Link::where('nome', '=', 'CaçaLog')->first();
-
-		foreach ($lista as $venda){			
-			$requisicaoCacalog = Http::get($cacalog->endereco."/".$venda->id_entrega); 
-
-			if(isset($requisicaoCacalog['status'])) $venda->statusEntrega = $requisicaoCacalog['status'];
-
-			$venda->save();
-		}        
-		
 		return view('venda.listarVendasGeral', ['lista' => $lista]);
 	}
 	
 	public function telaListarVendaEspecifico(){
-		$lista = Venda::where('id_cliente', '=', Auth::user()->id)->get();
-
-		$cacalog = Link::where('nome', '=', 'CaçaLog')->first();
-
-		foreach ($lista as $venda){			
-			$requisicaoCacalog = Http::get($cacalog->endereco."/".$venda->id_entrega); 
-
-			if(isset($requisicaoCacalog['status'])) $venda->statusEntrega = $requisicaoCacalog['status'];
-
-			$venda->save();
-		}     
-		
+		$lista = Venda::where('id_cliente', '=', Auth::user()->id)->get();		
 		return view('venda.listarVendasEspecifico', ['lista' => $lista]);
     }
 
@@ -174,12 +151,7 @@ class VendaController extends Controller
 				"id_pedido" => $venda->id,
 				"cliente" => Auth::user()->name,
 				"qtdProdutos" => $qtdFinal
-				]); 
-
-				$dados = $requisicaoCacapay->json();
-
-				if($dados)$venda->id_entrega = $dados['id'];
-				else $venda->id_entrega = 0;
+				]);
 			}
 
 			$venda->save();
