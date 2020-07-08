@@ -105,6 +105,8 @@ class VendaController extends Controller
 
     public function finalizar(Request $req){
 
+		$pago = false;
+
 		$idVenda = session()->get('idVenda');
 
 		$endereco = $req->input('endereco_id');
@@ -129,6 +131,7 @@ class VendaController extends Controller
 
 				if($requisicaoCacapay->status() == 201){
 					$venda->statusPagamento = "Pagamento Confirmado";
+					$pago = true;
 				}else if($requisicaoCacapay->status() == 401){
 					$venda->statusPagamento = "Pagamento Negado";
 				}else if($requisicaoCacapay->status() == 402 || $requisicaoCacapay->status() == 403 || $requisicaoCacapay->status() == 404){
@@ -138,7 +141,7 @@ class VendaController extends Controller
 
 			$cacalog = Link::where('nome', '=', 'Caçalog')->first();
 
-			if($cacalog){
+			if($cacalog and $pago){
 				$qtdFinal = 0;
 				foreach($venda->produtos as $vp){
 					$qtdFinal += $vp->pivot->quantidade;
