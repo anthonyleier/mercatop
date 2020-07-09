@@ -57,15 +57,18 @@
 
                         <div class="dropdown ml-3">
                             <button id="menu" class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name." "}}</button>
-                            <div class="dropdown-menu bg-dark text-light" aria-labelledby="dropdownMenu2">
+                            <div class="dropdown-menu dropdown-menu-right bg-dark text-light" aria-labelledby="dropdownMenu2">
                                 @if (Auth::user()->verificaCliente())
                                 <a id="texto_menu" href="{{route('tela_listar_endereco')}}"><button class="dropdown-item bg-dark text-light" type="button">Meus Endereços</button></a>
+                                <a id="texto_menu" href="{{route('tela_meus_pedidos')}}"><button class="dropdown-item bg-dark text-light" type="button">Meus Pedidos</button></a>
                                 @endif @if (Auth::user()->verificaAdmin())
                                 <a id="texto_menu" href="{{route('tela_listar_users')}}"><button class="dropdown-item bg-dark text-light" type="button">Usuários</button></a>
                                 <a id="texto_menu" href="{{route('tela_listar_cidade')}}"><button class="dropdown-item bg-dark text-light" type="button">Cidades</button></a>
                                 <a id="texto_menu" href="{{route('tela_listar_categoria')}}"><button class="dropdown-item bg-dark text-light" type="button">Categorias</button></a>
                                 <a id="texto_menu" href="{{route('tela_listar_produto')}}"><button class="dropdown-item bg-dark text-light" type="button">Produtos</button></a>
-                                <a id="texto_menu" id="texto_menu" href="{{route('tela_listar_venda_geral')}}"><button class="dropdown-item bg-dark text-light" type="button">Vendas</button></a>
+                                <a id="texto_menu" href="{{route('tela_listar_venda_geral')}}"><button class="dropdown-item bg-dark text-light" type="button">Vendas</button></a>
+                                <a id="texto_menu" href="{{route('tela_listar_link')}}"><button class="dropdown-item bg-dark text-light" type="button">Links</button></a>
+                                <a id="texto_menu" href="{{route('dashboard')}}"><button class="dropdown-item bg-dark text-light" type="button">Dashboard</button></a>
                                 @endif
                                 <a id="texto_menu" href="{{route('logout')}}"><button class="dropdown-item bg-dark text-light" type="button">Sair</button></a>
                             </div>
@@ -90,13 +93,12 @@
         </div>
         <div class="row mt-5">
             <div id="rodape" class="col-md-12">
-                <nav id="rodape" class="navbar navbar-dark bg-dark justify-content-center">
-                    <a class="navbar-brand" href="{{route('inicial')}}"><img src="/storage/icones/logo.png" width="75" /></a>
+                <nav id="rodape" class="navbar fixed-bottom navbar-dark bg-dark justify-content-center">
+                    <a class="navbar-brand" href="{{route('inicial')}}"><img src="/storage/icones/texto.png" width="75" /></a>
                 </nav>
             </div>
         </div>
-
-
+        @yield('scripts')
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use App\Link;
 use App\Venda;
 use App\Produto;
 use Auth;
@@ -38,8 +40,9 @@ class VendaController extends Controller
 		}
         
         $v->id_cliente = $id_cliente;
-        $v->finalizada = false;
-
+		$v->finalizada = false;
+		$v->statusEntrega = "Preparando";
+		$v->statusPagamento = "Aguardando Pagamento";
         $v->save();
 
         $id_produto = $req->input('id_produto');
@@ -91,11 +94,18 @@ class VendaController extends Controller
 	}
 	
     public function telaListarVendaGeral(){
-        $lista = Venda::all();
-        return view('venda.listarVendasGeral', ['lista' => $lista]);
+		$lista = Venda::all();
+		return view('venda.listarVendasGeral', ['lista' => $lista]);
+	}
+	
+	public function telaListarVendaEspecifico(){
+		$lista = Venda::where('id_cliente', '=', Auth::user()->id)->get();		
+		return view('venda.listarVendasEspecifico', ['lista' => $lista]);
     }
 
     public function finalizar(Request $req){
+
+		$pago = false;
 
 		$idVenda = session()->get('idVenda');
 
@@ -107,11 +117,51 @@ class VendaController extends Controller
 			$venda->id_endereco = $endereco;
 			$venda->finalizada = true;
 
+			$cacapay = Link::where('nome', '=', 'Caçapay')->first();
+
+			if($cacapay){
+				$requisicaoCacapay = Http::post($cacapay->endereco, 
+				["token" => $cacapay->token,
+				"cpf" => Auth::user()->cpf,
+				"valor" => $venda->valor,
+				"nome" => Auth::user()->name,
+				"senha" => Auth::user()->password,
+				"email" => Auth::user()->email			
+				]);
+
+				if($requisicaoCacapay->status() == 201){
+					$venda->statusPagamento = "Pagamento Confirmado";
+					$pago = true;
+				}else if($requisicaoCacapay->status() == 401){
+					$venda->statusPagamento = "Pagamento Negado";
+				}else if($requisicaoCacapay->status() == 402 || $requisicaoCacapay->status() == 403 || $requisicaoCacapay->status() == 404){
+					$venda->statusPagamento = "Problema de Conexão, tente novamente";
+				}
+			}
+
+			$cacalog = Link::where('nome', '=', 'Caçalog')->first();
+
+			if($cacalog and $pago){
+				$qtdFinal = 0;
+				foreach($venda->produtos as $vp){
+					$qtdFinal += $vp->pivot->quantidade;
+				}
+
+				$requisicaoCacalog = Http::post($cacalog->endereco, 
+				["token" => $cacalog->token,
+				"cep" => $venda->endereco->cep,
+				"numeroCasa" => $venda->endereco->numero,
+				"id_pedido" => $venda->id,
+				"cliente" => Auth::user()->name,
+				"qtdProdutos" => $qtdFinal
+				]);
+			}
+
 			$venda->save();
 
 			session()->forget('idVenda');
 
-    		return view('venda.finalizarVenda');
+    		return view('venda.finalizarVenda', ['codigo' => $requisicaoCacapay->status(), 'venda' => $venda]);
 		}else{
 			session(['mensagem' => 'Não é possível finalizar a compra com o carrinho vazio.']);
 

@@ -1,10 +1,10 @@
 @extends('layouts.template')
 @section('pagina')
 
-<table class="table table-bordered table-striped mt-4">
+<h3 class="mt-4">Meus Pedidos</h3>
+<table class="table table-bordered table-striped mt-1">
 	<thead>
-		<th>ID da Venda</th>
-		<th>Nome do Cliente</th>
+		<th>Número Pedido</th>
 		<th>Valor</th>
 		<th>Endereço de Destino</th>
 		<th>Pagamento</th>
@@ -15,7 +15,6 @@
 	<tr>
 		@if($venda->finalizada)
 			<td>{{$venda->id}}</td>
-			<td>{{$venda->user->name}}</td>
 			<td>{{$venda->valor}}</td>
 			@if(isset($venda->endereco))
 				<td>{{$venda->endereco->logradouro.", ".$venda->endereco->numero}}</td>

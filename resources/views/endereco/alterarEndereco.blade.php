@@ -10,9 +10,20 @@
                     <form method="POST" action="{{route('alterar_endereco', ["id" => $endereco->id]) }}">
                         @csrf
                         <div class="form-group row">
+                            <label for="cep" class="col-md-4 col-form-label text-md-right">{{ __('CEP') }}</label>
+                            <div class="col-md-6">
+                                <input id="cep" type="text" class="form-control @error('cep') is-invalid @enderror" name="cep" required autocomplete="cep" value="{{$endereco->cep}}" autofocus/>
+
+                                @error('cep')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="descricao" class="col-md-4 col-form-label text-md-right">{{ __('Descrição') }}</label>
                             <div class="col-md-6">
-                                <input id="descricao" type="text" class="form-control @error('descricao') is-invalid @enderror" name="descricao" required autocomplete="descricao" value="{{$endereco->descricao}}" autofocus />
+                                <input id="descricao" type="text" class="form-control @error('descricao') is-invalid @enderror" name="descricao" required autocomplete="descricao" value="{{$endereco->descricao}}"/>
 
                                 @error('descricao')
                                 <div class="alert alert-danger">{{ $message }}</div>

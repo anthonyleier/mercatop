@@ -12,7 +12,7 @@
             <th>Subtotal</th>
             <th>Remover</th>
         </thead>
-        @foreach($carrinho as $item)	
+        @foreach($carrinho as $item)
         <tbody>
             <td>{{$item->nome}}</td>
             <td>{{$item->id_categoria}}</td>

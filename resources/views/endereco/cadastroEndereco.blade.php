@@ -10,6 +10,17 @@
                     <form method="POST" action="{{route('registrar_endereco')}}">
                         @csrf
                         <div class="form-group row">
+                            <label for="cep" class="col-md-4 col-form-label text-md-right">{{ __('CEP') }}</label>
+                            <div class="col-md-6">
+                                <input id="cep" type="text" class="form-control @error('cep') is-invalid @enderror" name="cep" required autocomplete="cep" autofocus/>
+
+                                @error('cep')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="logradouro" class="col-md-4 col-form-label text-md-right">{{ __('Rua') }}</label>
                             <div class="col-md-6">
                                 <input id="logradouro" type="text" class="form-control @error('logradouro') is-invalid @enderror" name="logradouro" required autocomplete="logradouro" />
