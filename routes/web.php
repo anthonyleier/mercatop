@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+});
+
 Route::middleware(['auth'])->group(function(){
 
 	//Todas as rotas aqui dentro, o usuário precisará estar cadastrado
