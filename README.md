@@ -1,5 +1,5 @@
 <h1 align="center">
-	<img src="./public/storage/icones/logo.png" width="100"/>
+	<img src="./storage/app/public/icones/logo.png" width="100"/>
 </h1>
 
 ## Mercatop
